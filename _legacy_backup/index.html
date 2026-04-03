@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- [CHANGE THIS]: Your website description for Google Search -->
+    <meta name="description" content="Ashish Nirankari - Cinematic Video Editor specializing in travel & sports edits. Turn your videos into viral reels.">
+    
+    <!-- [CHANGE THIS]: What appears on the browser tab -->
+    <title>Ashish Nirankari | Cinematic Video Editor</title>
+    
+    <!-- Google Fonts: Outfit (Headings) & Inter (Body) -->
+    <!-- [CHANGE THIS]: If you want different fonts, replace this link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="loader" class="loader">
+        <div class="spinner">
+            <div class="glow-ring"></div>
+            <!-- [CHANGE THIS]: Your initials in the loading screen -->
+            <span>A.N.</span>
+        </div>
+    </div>
+
+    <!-- Background Grid overlay -->
+    <div class="bg-grid"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container container">
+            <!-- [CHANGE THIS]: Your Logo Text in the navbar -->
+            <a href="#" class="logo text-neon-blue">A<span class="text-neon-orange">.</span>N<span class="text-neon-orange">.</span></a>
+            <ul class="nav-links">
+                <li><a href="#portfolio">Work</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">Why Me</a></li>
+            </ul>
+            <div class="nav-cta">
+                <a href="#contact" class="btn btn-outline nav-btn">Hire Me</a>
+            </div>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Side / Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="close-menu"><i class="fas fa-times"></i></div>
+        <ul class="mobile-links">
+            <li><a href="#portfolio">Work</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">Why Me</a></li>
+            <li><a href="#contact" class="text-neon-orange">Hire Me</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <header id="hero" class="hero">
+        <div class="hero-bg">
+            <video autoplay muted loop playsinline class="bg-video">
+                <!-- [CHANGE THIS]: Background Video. Replace the 'src' link with your own video URL or local file path (e.g., "assets/hero.mp4") -->
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-running-on-a-mountain-in-the-snow-37837-large.mp4" type="video/mp4">
+            </video>
+            <div class="overlay gradient-overlay"></div>
+        </div>
+        
+        <div class="container hero-content text-center">
+            <div class="badge fade-up"><span class="pulse-dot"></span> Available for Work</div>
+            
+            <!-- [CHANGE THIS]: Main Headline in Hero Section -->
+            <h1 class="headline fade-up delay-1">I Turn Your Videos Into<br><span class="text-neon-blue text-glow">Viral Reels.</span></h1>
+            
+            <!-- [CHANGE THIS]: Sub-headline text under the main title -->
+            <p class="description fade-up delay-2">Cinematic edits for Instagram & YouTube. Perfect timing, dynamic pacing, and high-retention cuts for Travel & Sports creators.</p>
+            
+            <div class="hero-actions fade-up delay-3">
+                <a href="#contact" class="btn btn-primary btn-glow btn-lg">Get Your 1st Reel FREE</a>
+                <a href="#portfolio" class="btn btn-secondary btn-lg play-reel-btn"><i class="fas fa-play-circle"></i> View Showcase</a>
+            </div>
+        </div>
+
+        <div class="scroll-indicator fade-in delay-4">
+            <span>Scroll</span>
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="portfolio section-padding">
+            <div class="container margin-bottom">
+                <div class="section-heading reveal">
+                    <!-- [CHANGE THIS]: Portfolio Section Title -->
+                    <h2 class="section-title">Project <span class="text-neon-orange">Showcase</span></h2>
+                    <!-- [CHANGE THIS]: Portfolio Section Description -->
+                    <p class="section-subtitle">Hover over thumbnails to preview cinematic edits. Designed for high engagement.</p>
+                </div>
+            </div>
+            <div class="container grid portfolio-grid">
+                
+                <!-- Portfolio Card 1 -->
+                <div class="portfolio-item reveal">
+                    <video class="portfolio-video" muted loop playsinline>
+                        <!-- [CHANGE THIS]: Portfolio Video 1. Replace 'src' with your video link or path. -->
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-man-runs-past-ground-level-shot-32809-large.mp4" type="video/mp4">
+                    </video>
+                    <!-- [CHANGE THIS]: Portfolio Thumbnail Image 1. Replace 'src' with your image link or path. -->
+                    <img src="https://images.unsplash.com/photo-1552674605-171d31fea3fa?auto=format&fit=crop&q=80&w=800" alt="Sports Thumbnail" class="portfolio-thumb">
+                    
+                    <div class="portfolio-content">
+                        <!-- [CHANGE THIS]: Category label for Card 1 -->
+                        <div class="badge-cat mb-sm text-neon-blue border-neon-blue">Sports</div>
+                        <!-- [CHANGE THIS]: Title for Card 1 -->
+                        <h3 class="portfolio-title">Night Run Cinematic</h3>
+                        <!-- [CHANGE THIS]: Description for Card 1 -->
+                        <p class="portfolio-desc">High-bpm edits, speed ramps, and heavy sound design.</p>
+                        <div class="play-icon-overlay"><i class="fas fa-play"></i></div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Card 2 -->
+                <div class="portfolio-item reveal delay-1">
+                    <video class="portfolio-video" muted loop playsinline>
+                        <!-- [CHANGE THIS]: Portfolio Video 2. Replace 'src' with your video link or path. -->
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-person-walking-on-a-mountain-42436-large.mp4" type="video/mp4">
+                    </video>
+                    <!-- [CHANGE THIS]: Portfolio Thumbnail Image 2. Replace 'src' with your image link or path. -->
+                    <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=800" alt="Travel Thumbnail" class="portfolio-thumb">
+                    
+                    <div class="portfolio-content">
+                        <!-- [CHANGE THIS]: Category label for Card 2 -->
+                        <div class="badge-cat mb-sm text-neon-orange border-neon-orange">Travel</div>
+                        <!-- [CHANGE THIS]: Title for Card 2 -->
+                        <h3 class="portfolio-title">Himalayan Peak Vlog</h3>
+                        <!-- [CHANGE THIS]: Description for Card 2 -->
+                        <p class="portfolio-desc">Smooth transitions, immersive ambient drops, and teal/orange grading.</p>
+                        <div class="play-icon-overlay"><i class="fas fa-play"></i></div>
+                    </div>
+                </div>
+
+                <!-- Portfolio Card 3 -->
+                <div class="portfolio-item reveal delay-2">
+                    <video class="portfolio-video" muted loop playsinline>
+                        <!-- [CHANGE THIS]: Portfolio Video 3. Replace 'src' with your video link or path. -->
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-basketball-player-dribbling-the-ball-in-a-court-41584-large.mp4" type="video/mp4">
+                    </video>
+                    <!-- [CHANGE THIS]: Portfolio Thumbnail Image 3. Replace 'src' with your image link or path. -->
+                    <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&q=80&w=800" alt="Basketball Thumbnail" class="portfolio-thumb">
+                    
+                    <div class="portfolio-content">
+                        <!-- [CHANGE THIS]: Category label for Card 3 -->
+                        <div class="badge-cat mb-sm text-neon-blue border-neon-blue">Sports</div>
+                        <!-- [CHANGE THIS]: Title for Card 3 -->
+                        <h3 class="portfolio-title">Court Side Action</h3>
+                        <!-- [CHANGE THIS]: Description for Card 3 -->
+                        <p class="portfolio-desc">Beat-synced cuts, dynamic zoom, motion blur effects.</p>
+                        <div class="play-icon-overlay"><i class="fas fa-play"></i></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Before vs After Section -->
+        <section id="before-after" class="before-after section-padding bg-darker">
+            <div class="container container-sm text-center margin-bottom reveal">
+                <!-- [CHANGE THIS]: Titles and Text for Before/After Slider -->
+                <h2 class="section-title">Raw vs <span class="text-neon-blue text-glow">Edited</span></h2>
+                <p class="section-subtitle">Drag the slider. See the magic of advanced color grading and contrast adjustments applied to flat Log footage.</p>
+            </div>
+            
+            <div class="container reveal delay-1">
+                <div class="ba-slider" id="ba-slider">
+                    <!-- Base Image (Raw/Before) -->
+                    <div class="ba-image raw">
+                        <!-- [CHANGE THIS]: Raw (Before) image link. -->
+                        <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=50&w=1200" alt="Raw Flat Image" class="raw-img">
+                        <span class="ba-label label-left">RAW (LOG)</span>
+                    </div>
+                    
+                    <!-- Overlay Image (Edited/After) -->
+                    <div class="ba-image edited" id="ba-edited">
+                        <!-- [CHANGE THIS]: Color Graded (After) image link. Be sure the before and after image dimensions match! -->
+                        <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=90&w=1200&sat=40&contrast=30&tint=10" alt="Color Graded Image">
+                        <span class="ba-label label-right text-neon-blue">GRADED</span>
+                    </div>
+                    
+                    <div class="ba-handle" id="ba-handle">
+                        <div class="ba-handle-line"></div>
+                        <div class="ba-handle-btn">
+                            <i class="fas fa-caret-left"></i>
+                            <i class="fas fa-caret-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services section-padding">
+            <div class="container margin-bottom text-center reveal">
+                <!-- [CHANGE THIS]: Titles and Text for Pricing Packages -->
+                <h2 class="section-title">Editing <span class="text-neon-orange text-glow">Packages</span></h2>
+                <p class="section-subtitle">Scalable editing tiers designed for varying content creation needs.</p>
+            </div>
+            
+            <div class="container grid pricing-grid reveal delay-1">
+                
+                <!-- Package 1: Basic -->
+                <div class="pricing-card">
+                    <!-- [CHANGE THIS]: Package 1 Details (Name, Price, Features) -->
+                    <h3 class="tier-name">Basic Cuts</h3>
+                    <div class="price">
+                        <span class="currency">₹</span>499<span class="period">/ reel</span>
+                    </div>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Standard color correction</li>
+                        <li><i class="fas fa-check"></i> Clean cuts & assembly</li>
+                        <li><i class="fas fa-check"></i> Simple text integration</li>
+                        <li><i class="fas fa-check"></i> 1 Revision</li>
+                        <li><i class="fas fa-check"></i> 48 hr Delivery</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline btn-full mt-auto">Choose Basic</a>
+                </div>
+                
+                <!-- Package 2: Standard (Popular) -->
+                <div class="pricing-card popular neon-border">
+                    <div class="popular-tag text-neon-blue"><i class="fas fa-fire"></i> Standard</div>
+                    <!-- [CHANGE THIS]: Package 2 Details (Name, Price, Features) -->
+                    <h3 class="tier-name">The Viral Edit</h3>
+                    <div class="price text-neon-blue">
+                        <span class="currency text-white">₹</span>999<span class="period text-gray">/ reel</span>
+                    </div>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Cinematic color grading</li>
+                        <li><i class="fas fa-check"></i> Dynamic captions (Hormozi style)</li>
+                        <li><i class="fas fa-check"></i> Pacing & speed ramps</li>
+                        <li><i class="fas fa-check"></i> SFX & Music mixing</li>
+                        <li><i class="fas fa-check"></i> 2 Revisions</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary btn-glow btn-full mt-auto">Book Standard</a>
+                </div>
+                
+                <!-- Package 3: Premium -->
+                <div class="pricing-card">
+                    <!-- [CHANGE THIS]: Package 3 Details (Name, Price, Features) -->
+                    <h3 class="tier-name">Premium Batch</h3>
+                    <div class="price text-neon-orange">
+                        <span class="currency text-white">₹</span>1999<span class="period text-gray">/ 3 reels</span>
+                    </div>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> 3 fully-edited reels</li>
+                        <li><i class="fas fa-check"></i> Advanced motion graphics</li>
+                        <li><i class="fas fa-check"></i> Immersive sound design</li>
+                        <li><i class="fas fa-check"></i> Unlimited Revisions</li>
+                        <li><i class="fas fa-bolt text-neon-orange"></i> 24hr Fast Delivery available</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline border-neon-orange btn-full mt-auto">Select Premium</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Me -->
+        <section id="about" class="about section-padding bg-darker overflow-hidden">
+            <div class="container grid about-grid align-center">
+                <div class="about-visual reveal">
+                    <div class="vid-container glow-border">
+                        <!-- [CHANGE THIS]: About Section Image. Replace 'src' with your photo -->
+                        <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf6d44d?auto=format&fit=crop&q=80&w=800" alt="Editing Setup">
+                        <div class="floating-badge badge-1">
+                            <i class="fas fa-bolt text-neon-orange"></i> Fast Turnaround
+                        </div>
+                        <div class="floating-badge badge-2">
+                            <i class="fas fa-chart-line text-neon-blue"></i> High Retention
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-text reveal delay-1">
+                    <!-- [CHANGE THIS]: About Section Text -->
+                    <h2 class="section-title">An Athlete's Eye for <span class="highlight text-neon-blue">Timing.</span></h2>
+                    <p class="lead">My sports background means I instinctively understand momentum, pacing, and impact. I don't just paste clips together; I direct the viewer's attention to maximize watch time.</p>
+                    
+                    <ul class="perks-list">
+                        <li>
+                            <div class="perk-icon"><i class="fas fa-eye text-neon-orange"></i></div>
+                            <div class="perk-content">
+                                <h4>Visual Storytelling</h4>
+                                <p>Every frame serves a purpose. Engaging hooks and satisfying payoffs.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="perk-icon"><i class="fas fa-wave-square text-neon-blue"></i></div>
+                            <div class="perk-content">
+                                <h4>Immersive Audio</h4>
+                                <p>Strategic sound design (foley, risers, hits) to elevate visual impact by 10x.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section id="testimonials" class="testimonials section-padding">
+            <div class="container text-center margin-bottom reveal">
+                <h2 class="section-title">Client <span class="text-neon-orange text-glow">Reactions</span></h2>
+            </div>
+            
+            <div class="container grid testimonials-grid reveal delay-1">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                    <div class="quote-icon"><i class="fas fa-quote-left text-neon-blue"></i></div>
+                    <div class="stars">
+                        <i class="fas fa-star text-neon-orange"></i><i class="fas fa-star text-neon-orange"></i><i class="fas fa-star text-neon-orange"></i><i class="fas fa-star text-neon-orange"></i><i class="fas fa-star text-neon-orange"></i>
+                    </div>
+                    <!-- [CHANGE THIS]: Testimonial quote and author details -->
+                    <p class="quote">"Ashish completely transformed my travel vlogs. His color grading brought out details I didn't even know were there, and the retention went through the roof!"</p>
+                    <div class="author">
+                        <div class="avatar bg-gray">S</div>
+                        <div class="author-details">
+                            <h4>Sam C.</h4>
+                            <span class="text-neon-blue">Travel Creator</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <div class="quote-icon"><i class="fas fa-quote-left text-neon-orange"></i></div>
+                    <div class="stars">
+                        <i class="fas fa-star text-neon-orange"></i><i class="fas fa-star text-neon-orange"></i><i class="fas fa-star text-neon-orange"></i><i class="fas fa-star text-neon-orange"></i><i class="fas fa-star text-neon-orange"></i>
+                    </div>
+                    <!-- [CHANGE THIS]: Testimonial quote and author details -->
+                    <p class="quote">"If you want fast-paced, high-energy edits for fitness content, he is the guy. He literally matched the video pacing to the exact BPM of the track flawlessly."</p>
+                    <div class="author">
+                        <div class="avatar bg-gray">M</div>
+                        <div class="author-details">
+                            <h4>Marcus F.</h4>
+                            <span class="text-neon-orange">Fitness Athlete</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact CTA -->
+        <section id="contact" class="contact section-padding bg-glow-gradient">
+            <div class="container text-center reveal">
+                <div class="badge fade-up mb-sm">Risk-free trial</div>
+                <!-- [CHANGE THIS]: Final Call to Action Titles -->
+                <h2 class="section-title text-huge fade-up">Let's craft your next <span class="text-neon-blue text-glow">Masterpiece.</span></h2>
+                <p class="section-subtitle lg fade-up delay-1">Test out my skills before committing. Get your first sample reel edited completely FREE. No strings attached.</p>
+                
+                <div class="contact-links fade-up delay-2">
+                    <!-- [CHANGE THIS]: Replace YOUR_WHATSAPP_NUMBER with your actual number (e.g., 1234567890) -->
+                    <a href="https://wa.me/YOUR_WHATSAPP_NUMBER" target="_blank" class="btn btn-primary btn-glow btn-lg">
+                        <i class="fab fa-whatsapp"></i> DM on WhatsApp
+                    </a>
+                    <!-- [CHANGE THIS]: Replace YOUR_HANDLE with your actual Instagram username -->
+                    <a href="https://instagram.com/YOUR_HANDLE" target="_blank" class="btn btn-outline btn-lg">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </a>
+                    <!-- [CHANGE THIS]: Replace YOUR_PROFILE with your actual Fiverr profile link -->
+                    <a href="https://fiverr.com/YOUR_PROFILE" target="_blank" class="btn btn-outline btn-lg">
+                        <i class="fas fa-bolt text-neon-orange"></i> Fiverr Profile
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <!-- [CHANGE THIS]: Footer Logo Text -->
+                <a href="#" class="logo text-neon-blue text-glow">A<span class="text-neon-orange">.</span>N<span class="text-neon-orange">.</span></a>
+                <p class="text-gray mt-sm">Cinematic Editor for high-converting content.</p>
+            </div>
+            <div class="footer-socials">
+                <!-- [CHANGE THIS]: Footer Social Icons Links -->
+                <a href="https://instagram.com/" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="https://youtube.com/" target="_blank" class="social-icon"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="footer-copyright">
+                <!-- [CHANGE THIS]: Footer Copyright Name -->
+                <p>&copy; <span id="year">2026</span> Ashish Nirankari. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>

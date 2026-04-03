@@ -1,0 +1,88 @@
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  align-items: center;
+}
+.pricing-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+.pricing-card:hover {
+  transform: translateY(-10px);
+  background: var(--bg-card-hover);
+  border-color: rgba(255,255,255,0.1);
+}
+.pricing-card.popular {
+  transform: scale(1.05);
+  background: linear-gradient(to bottom, #111 0%, #050505 100%);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+.pricing-card.popular.neon-border {
+  border: 1px solid rgba(0, 240, 255, 0.3);
+}
+.pricing-card.popular:hover {
+  transform: scale(1.05) translateY(-10px);
+  border-color: var(--neon-blue);
+  box-shadow: 0 20px 40px rgba(0, 240, 255, 0.1);
+}
+.popular-tag {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  background: rgba(0, 240, 255, 0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+.tier-name {
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  margin-bottom: 15px;
+}
+.price {
+  font-size: 3rem;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 30px;
+}
+.currency {
+  font-size: 1.5rem;
+  vertical-align: top;
+}
+.period {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+.features {
+  margin-bottom: 40px;
+}
+.features li {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+@media (max-width: 768px) {
+  .pricing-card.popular {
+    transform: none;
+    box-shadow: none;
+    border-color: rgba(0, 240, 255, 0.3);
+  }
+  .pricing-card.popular:hover {
+    transform: translateY(-5px);
+  }
+}
