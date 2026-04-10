@@ -1,0 +1,132 @@
+.scroll-timeline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  z-index: 1001;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.scroll-timeline.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.st-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+html[data-theme='light'] .st-track {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.st-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-blue), var(--neon-orange));
+  transition: width 0.05s linear;
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+}
+
+html[data-theme='light'] .st-progress {
+  box-shadow: none;
+}
+
+/* Section Markers */
+.st-marker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+}
+
+.st-marker-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+html[data-theme='light'] .st-marker-dot {
+  background: rgba(0, 0, 0, 0.15);
+  border: 2px solid rgba(0, 0, 0, 0.08);
+}
+
+.st-marker.active .st-marker-dot {
+  background: var(--neon-blue);
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+  transform: scale(1.3);
+}
+
+html[data-theme='light'] .st-marker.active .st-marker-dot {
+  box-shadow: 0 0 8px rgba(79, 70, 229, 0.3);
+}
+
+.st-marker-label {
+  position: absolute;
+  top: calc(100% + 8px);
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+.st-marker:hover .st-marker-label,
+.st-marker.active .st-marker-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.st-marker.active .st-marker-label {
+  color: var(--neon-blue);
+}
+
+/* Hover effect for whole timeline area */
+.scroll-timeline:hover {
+  height: 5px;
+}
+
+.scroll-timeline:hover .st-marker-dot {
+  transform: scale(1.2);
+}
+
+.scroll-timeline:hover .st-marker.active .st-marker-dot {
+  transform: scale(1.5);
+}
+
+/* Mobile: hide labels, keep dots simpler */
+@media (max-width: 768px) {
+  .st-marker-label {
+    display: none;
+  }
+  
+  .st-marker-dot {
+    width: 6px;
+    height: 6px;
+  }
+}

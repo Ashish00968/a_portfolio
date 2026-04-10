@@ -4,13 +4,24 @@
 .ba-slider {
   position: relative;
   width: 100%;
-  height: 60vh;
-  min-height: 400px;
+  height: auto;
+  aspect-ratio: 16 / 9;
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.1);
   cursor: ew-resize;
   touch-action: none;
+}
+
+html[data-theme='light'] .ba-slider {
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+@media (min-width: 1024px) {
+  .ba-slider {
+    height: 60vh;
+    min-height: 400px;
+  }
 }
 .ba-image {
   position: absolute;
@@ -25,10 +36,8 @@
 }
 .ba-image.edited {
   z-index: 2;
-  border-right: 2px solid var(--neon-blue);
-  transition: width 0.1s ease-out;
-  will-change: width;
-  /* The width is controlled by React inline styles */
+  width: 100%;
+  height: 100%;
 }
 .ba-image img {
   width: 100%;
@@ -37,17 +46,6 @@
   object-position: center;
   display: block;
   pointer-events: none;
-}
-/* Crucial fix for overlay image: Needs to maintain aspect ratio 
-   relative to the container, not the clipped width */
-.ba-image.edited img {
-  width: 100vw;
-  max-width: none;
-}
-@media (min-width: 1200px) {
-  .ba-image.edited img {
-    width: 1200px; /* matches container max-width */
-  }
 }
 
 .ba-label {
@@ -62,9 +60,18 @@
   letter-spacing: 2px;
   font-size: 0.9rem;
 }
+
+html[data-theme='light'] .ba-label {
+  background: rgba(255,255,255,0.85); /* Frosted white */
+}
+
 .label-left {
   right: 20px;
   color: #fff;
+}
+
+html[data-theme='light'] .label-left {
+  color: var(--text-main); /* Ensure visibility on light mode */
 }
 .label-right {
   left: 20px;

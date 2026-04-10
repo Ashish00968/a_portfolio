@@ -1,19 +1,21 @@
 import React from 'react';
 import { Zap, Mail } from 'lucide-react';
+import useScrollReveal from '../hooks/useScrollReveal';
 import './Footer.css';
 
 const Footer = () => {
   const year = new Date().getFullYear();
+  const sectionRef = useScrollReveal();
 
   return (
     <>
       {/* Contact CTA */}
-      <section id="contact" className="contact section-padding bg-glow-gradient">
+      <section id="contact" className="contact section-padding bg-glow-gradient" ref={sectionRef}>
         <div className="container text-center">
-          <h2 className="section-title text-huge">Let's craft your next <span className="text-neon-blue text-glow">Masterpiece.</span></h2>
-          <p className="section-subtitle lg">Ready to elevate your content? Get in touch today and let's create something amazing together.</p>
+          <h2 className="section-title text-huge reveal">Let's craft your next <span className="text-neon-blue text-glow">Masterpiece.</span></h2>
+          <p className="section-subtitle lg reveal" data-delay="1">Ready to elevate your content? Get in touch today and let's create something amazing together.</p>
           
-          <div className="contact-links">
+          <div className="contact-links reveal" data-delay="2">
             <a href="mailto:ashishnirankari0001@gmail.com" className="btn btn-primary btn-glow btn-lg">
               <Mail size={20} /> Email Me
             </a>

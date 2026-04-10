@@ -1,13 +1,13 @@
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
   align-items: center;
 }
 .pricing-card {
   background: var(--bg-card);
   border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 40px 30px;
   display: flex;
   flex-direction: column;
@@ -16,24 +16,51 @@
   overflow: hidden;
   height: 100%;
 }
+
+html[data-theme='light'] .pricing-card {
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+}
+
 .pricing-card:hover {
-  transform: translateY(-10px);
   background: var(--bg-card-hover);
   border-color: rgba(255,255,255,0.1);
+}
+
+html[data-theme='light'] .pricing-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
 }
 .pricing-card.popular {
   transform: scale(1.05);
   background: linear-gradient(to bottom, #111 0%, #050505 100%);
   box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
+
+html[data-theme='light'] .pricing-card.popular {
+  background: linear-gradient(to bottom, #fff 0%, #F8FAFC 100%);
+  box-shadow: 0 10px 40px rgba(79, 70, 229, 0.1);
+  border: 2px solid var(--neon-blue);
+}
+
 .pricing-card.popular.neon-border {
   border: 1px solid rgba(0, 240, 255, 0.3);
 }
+
+html[data-theme='light'] .pricing-card.popular.neon-border {
+  border: 2px solid var(--neon-blue);
+}
+
 .pricing-card.popular:hover {
   transform: scale(1.05) translateY(-10px);
   border-color: var(--neon-blue);
   box-shadow: 0 20px 40px rgba(0, 240, 255, 0.1);
 }
+
+html[data-theme='light'] .pricing-card.popular:hover {
+  box-shadow: 0 25px 50px rgba(79, 70, 229, 0.15);
+}
+
 .popular-tag {
   position: absolute;
   top: 15px;
@@ -45,6 +72,11 @@
   background: rgba(0, 240, 255, 0.1);
   padding: 4px 12px;
   border-radius: 20px;
+}
+
+html[data-theme='light'] .popular-tag {
+  background: var(--neon-blue);
+  color: #fff;
 }
 .tier-name {
   font-size: 1.5rem;
@@ -76,13 +108,75 @@
   align-items: center;
   gap: 10px;
 }
+
+/* Floating animation for popular card */
+.pricing-card.floating-card {
+  animation: floatCard 4s ease-in-out infinite;
+}
+
+@keyframes floatCard {
+  0%, 100% { transform: scale(1.05) translateY(0); }
+  50% { transform: scale(1.05) translateY(-10px); }
+}
+
+/* Feature cascade highlight on hover */
+.pricing-card:hover .features li {
+  animation: featureHighlight 0.4s ease forwards;
+}
+
+.pricing-card:hover .features li:nth-child(1) { animation-delay: 0ms; }
+.pricing-card:hover .features li:nth-child(2) { animation-delay: 80ms; }
+.pricing-card:hover .features li:nth-child(3) { animation-delay: 160ms; }
+.pricing-card:hover .features li:nth-child(4) { animation-delay: 240ms; }
+.pricing-card:hover .features li:nth-child(5) { animation-delay: 320ms; }
+
+@keyframes featureHighlight {
+  0% { opacity: 0.7; transform: translateX(0); }
+  50% { opacity: 1; transform: translateX(6px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* Pulsing CTA on popular card */
+.pulse-cta {
+  animation: ctaPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes ctaPulse {
+  0%, 100% { box-shadow: var(--glow-blue); }
+  50% { box-shadow: 0 0 20px rgba(0, 240, 255, 0.6), 0 0 40px rgba(0, 240, 255, 0.3); }
+}
+
+html[data-theme='light'] .pulse-cta {
+  animation: ctaPulseLight 2.5s ease-in-out infinite;
+}
+
+@keyframes ctaPulseLight {
+  0%, 100% { box-shadow: var(--glow-blue); }
+  50% { box-shadow: 0 4px 20px rgba(79, 70, 229, 0.35); }
+}
+
 @media (max-width: 768px) {
+  .pricing-grid {
+    gap: 20px;
+  }
+  .pricing-card {
+    padding: 30px 24px;
+  }
   .pricing-card.popular {
     transform: none;
     box-shadow: none;
     border-color: rgba(0, 240, 255, 0.3);
   }
+  html[data-theme='light'] .pricing-card.popular {
+    box-shadow: 0 4px 16px rgba(79, 70, 229, 0.08);
+  }
   .pricing-card.popular:hover {
     transform: translateY(-5px);
+  }
+  .pricing-card.floating-card {
+    animation: none;
+  }
+  .price {
+    font-size: 2.4rem;
   }
 }

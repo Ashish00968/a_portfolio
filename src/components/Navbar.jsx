@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import './Navbar.css';
+import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -26,10 +27,15 @@ const Navbar = () => {
             <li><a href="#services">Services</a></li>
           </ul>
           <div className="nav-cta">
+            <ThemeToggle />
             <a href="#contact" className="btn btn-outline nav-btn">Hire Me</a>
           </div>
-          <div className="hamburger" onClick={() => setMobileMenuOpen(true)}>
-            <Menu size={28} />
+          {/* Mobile: theme toggle + hamburger always visible */}
+          <div className="mobile-nav-actions">
+            <ThemeToggle />
+            <div className="hamburger" onClick={() => setMobileMenuOpen(true)}>
+              <Menu size={28} />
+            </div>
           </div>
         </div>
       </nav>

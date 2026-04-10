@@ -1,0 +1,240 @@
+.floating-contact {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 999;
+
+  /* Hidden by default */
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.floating-contact.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+/* Trigger Button */
+.fc-trigger {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: var(--neon-blue);
+  color: #000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 240, 255, 0.4);
+  transition: all 0.3s ease;
+  animation: triggerPulse 3s ease-in-out infinite;
+}
+
+html[data-theme='light'] .fc-trigger {
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(79, 70, 229, 0.3);
+}
+
+.fc-trigger:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 30px rgba(0, 240, 255, 0.6);
+}
+
+html[data-theme='light'] .fc-trigger:hover {
+  box-shadow: 0 6px 30px rgba(79, 70, 229, 0.4);
+}
+
+@keyframes triggerPulse {
+  0%, 100% {
+    box-shadow: 0 4px 20px rgba(0, 240, 255, 0.4);
+  }
+  50% {
+    box-shadow: 0 4px 30px rgba(0, 240, 255, 0.6), 0 0 0 8px rgba(0, 240, 255, 0.1);
+  }
+}
+
+.fc-icon {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  position: absolute;
+}
+
+.fc-icon.hidden {
+  opacity: 0;
+  transform: scale(0.5) rotate(90deg);
+}
+
+/* Tooltip */
+.fc-tooltip {
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--bg-card);
+  color: var(--text-main);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme='light'] .fc-tooltip {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.fc-trigger:hover .fc-tooltip {
+  opacity: 1;
+}
+
+.floating-contact.open .fc-trigger .fc-tooltip {
+  opacity: 0;
+}
+
+.floating-contact.open .fc-trigger {
+  animation: none;
+}
+
+/* Expanded Card */
+.fc-card {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  right: 0;
+  width: 260px;
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+
+  /* Hidden by default */
+  opacity: 0;
+  transform: translateY(10px) scale(0.95);
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform-origin: bottom right;
+}
+
+html[data-theme='light'] .fc-card {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.floating-contact.open .fc-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+}
+
+.fc-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.fc-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.fc-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: color 0.2s ease;
+}
+
+.fc-close:hover {
+  color: var(--neon-orange);
+}
+
+/* Links */
+.fc-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fc-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.fc-link-email {
+  background: rgba(0, 240, 255, 0.08);
+  color: var(--neon-blue);
+  border: 1px solid rgba(0, 240, 255, 0.12);
+}
+
+.fc-link-email:hover {
+  background: rgba(0, 240, 255, 0.15);
+  transform: translateX(4px);
+}
+
+.fc-link-instagram {
+  background: rgba(225, 48, 108, 0.08);
+  color: #E1306C;
+  border: 1px solid rgba(225, 48, 108, 0.12);
+}
+
+.fc-link-instagram:hover {
+  background: rgba(225, 48, 108, 0.15);
+  transform: translateX(4px);
+}
+
+.fc-link-fiverr {
+  background: rgba(255, 94, 0, 0.08);
+  color: var(--neon-orange);
+  border: 1px solid rgba(255, 94, 0, 0.12);
+}
+
+.fc-link-fiverr:hover {
+  background: rgba(255, 94, 0, 0.15);
+  transform: translateX(4px);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .floating-contact {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .fc-trigger {
+    width: 50px;
+    height: 50px;
+  }
+
+  .fc-card {
+    width: 240px;
+  }
+
+  .fc-tooltip {
+    display: none;
+  }
+}

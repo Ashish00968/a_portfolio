@@ -1,0 +1,229 @@
+.stats-section {
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 240, 255, 0.3),
+    transparent
+  );
+}
+
+html[data-theme='light'] .stats-section::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(79, 70, 229, 0.15),
+    transparent
+  );
+}
+
+.stats-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 94, 0, 0.3),
+    transparent
+  );
+}
+
+html[data-theme='light'] .stats-section::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(234, 88, 12, 0.2),
+    transparent
+  );
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.stat-card {
+  text-align: center;
+  padding: 40px 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  /* Start hidden for animation */
+  opacity: 0;
+  transform: translateY(30px);
+  transition: none;
+}
+
+html[data-theme='light'] .stat-card {
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.stat-card.animate-in {
+  animation: statCardReveal 0.7s ease forwards;
+}
+
+@keyframes statCardReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stat-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-5px) !important;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+html[data-theme='light'] .stat-card:hover {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.stat-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.stat-icon-blue {
+  background: rgba(0, 240, 255, 0.1);
+  color: var(--neon-blue);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
+}
+
+html[data-theme='light'] .stat-icon-blue {
+  background: rgba(79, 70, 229, 0.06);
+  box-shadow: none;
+}
+
+.stat-icon-orange {
+  background: rgba(255, 94, 0, 0.1);
+  color: var(--neon-orange);
+  box-shadow: 0 0 20px rgba(255, 94, 0, 0.1);
+}
+
+html[data-theme='light'] .stat-icon-orange {
+  background: rgba(234, 88, 12, 0.08);
+  box-shadow: none;
+}
+
+.counter-number {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--text-main), var(--neon-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+/* Glow pulse on completion */
+.stat-glow-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: glowPulse 1.5s ease forwards;
+}
+
+.stat-glow-blue {
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, transparent 70%);
+}
+
+.stat-glow-orange {
+  background: radial-gradient(circle, rgba(255, 94, 0, 0.15) 0%, transparent 70%);
+}
+
+html[data-theme='light'] .stat-glow-pulse {
+  display: none;
+}
+
+@keyframes glowPulse {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .stat-card {
+    padding: 30px 15px;
+  }
+
+  .counter-number {
+    font-size: 2.2rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .stats-grid {
+    gap: 12px;
+  }
+  .stat-card {
+    padding: 24px 10px;
+  }
+  .counter-number {
+    font-size: 1.8rem;
+  }
+}

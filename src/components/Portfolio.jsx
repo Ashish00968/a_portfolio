@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { Play, X } from 'lucide-react';
 import './Portfolio.css';
 
@@ -42,11 +42,65 @@ const portfolioData = [
 ];
 
 const PortfolioItem = ({ item, openModal }) => {
+  const cardRef = useRef(null);
+  const spotlightRef = useRef(null);
+  const isTouchDevice = 'ontouchstart' in window;
+
+  const handleMouseMove = useCallback((e) => {
+    if (isTouchDevice) return;
+    const card = cardRef.current;
+    if (!card) return;
+
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    // 3D tilt (max ±8 degrees)
+    const rotateX = ((y - centerY) / centerY) * -8;
+    const rotateY = ((x - centerX) / centerX) * 8;
+
+    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+
+    // Spotlight glow follows cursor
+    if (spotlightRef.current) {
+      spotlightRef.current.style.opacity = '1';
+      spotlightRef.current.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(0, 240, 255, 0.15) 0%, transparent 60%)`;
+    }
+  }, [isTouchDevice]);
+
+  const handleMouseLeave = useCallback(() => {
+    const card = cardRef.current;
+    if (!card) return;
+    card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale(1)';
+    card.style.transition = 'transform 0.5s ease';
+    if (spotlightRef.current) {
+      spotlightRef.current.style.opacity = '0';
+    }
+    // Remove transition after reset to not interfere with mousemove
+    setTimeout(() => {
+      if (card) card.style.transition = 'none';
+    }, 500);
+  }, []);
+
+  const handleMouseEnter = useCallback(() => {
+    const card = cardRef.current;
+    if (card) card.style.transition = 'none';
+  }, []);
+
   return (
     <div 
+      ref={cardRef}
       className="portfolio-item-horizontal"
       onClick={() => openModal(item.youtubeId)}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onMouseEnter={handleMouseEnter}
     >
+      {/* Spotlight overlay */}
+      <div ref={spotlightRef} className="card-spotlight" />
+
       <img 
         src={item.imgSrc} 
         alt={item.title} 
