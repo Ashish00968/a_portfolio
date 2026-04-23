@@ -9,7 +9,7 @@ const portfolioData = [
     category: 'cinematic colour grading',
     desc: 'cinematic pacing , smooth flow and coulour grading from plain text to other',
     youtubeId: '7SS_xdbI3Xc', // Sethan Sunset
-    imgSrc: '/sethan-thumbnail.jpg',
+    imgSrc: 'sethan-thumbnail.jpg',
     colorClass: 'text-neon-blue border-neon-blue'
   },
   {
@@ -18,7 +18,7 @@ const portfolioData = [
     category: 'Travel Cinematic',
     desc: 'An immersive cinematic edit showcasing the breathtaking ascent of Patalsu Peak near Manali.',
     youtubeId: 'yinFLtDCJ3k', // Patalsu Hike
-    imgSrc: '/patalsu-thumbnail.jpg',
+    imgSrc: 'patalsu-thumbnail.jpg',
     colorClass: 'text-neon-orange border-neon-orange'
   },
   {
@@ -27,7 +27,7 @@ const portfolioData = [
     category: 'Travel Reel',
     desc: 'Fast-paced, seamless transition reel highlighting the beauty and energy of Manali.',
     youtubeId: 'Q53KC68VNaM', // Manali
-    imgSrc: '/manali-transitions-thumbnail.jpg',
+    imgSrc: 'manali-transitions-thumbnail.jpg',
     colorClass: 'text-neon-blue border-neon-blue'
   },
   {
@@ -36,7 +36,7 @@ const portfolioData = [
     category: 'Slow Motion B-Roll',
     desc: 'A moody, slow-paced cinematic sequence capturing the raw essence and landscape of Kalpa.',
     youtubeId: '_FOL-z3aICs', // Kalpa
-    imgSrc: '/kalpa-thumbnail.jpg',
+    imgSrc: 'kalpa-thumbnail.jpg',
     colorClass: 'text-neon-orange border-neon-orange'
   }
 ];
