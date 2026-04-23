@@ -2,9 +2,11 @@ import React, { useCallback, useRef } from 'react';
 import { Check, Flame, Zap } from 'lucide-react';
 import './Pricing.css';
 
+// Touch detection at module level — evaluated once, not on every render
+const isTouchDevice = typeof window !== 'undefined' && 'ontouchstart' in window;
+
 const PricingCard = ({ children, isPopular, className = '' }) => {
   const cardRef = useRef(null);
-  const isTouchDevice = 'ontouchstart' in window;
 
   const handleMouseMove = useCallback((e) => {
     if (isTouchDevice) return;
@@ -22,7 +24,7 @@ const PricingCard = ({ children, isPopular, className = '' }) => {
 
     const baseScale = isPopular ? 1.05 : 1;
     card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${baseScale * 1.02})`;
-  }, [isTouchDevice, isPopular]);
+  }, [isPopular]);
 
   const handleMouseLeave = useCallback(() => {
     const card = cardRef.current;

@@ -48,15 +48,17 @@ const steps = [
 ];
 
 const BASE_SCALE = 1;
-const MAX_SCALE = 1.25;
-const MAGNIFY_RANGE = 280; // px radius of influence
+const MAX_SCALE = 1.35; // Increased for more "wow"
+const MAGNIFY_RANGE = 250; 
+const CARD_WIDTH = 200;
+const CARD_GAP = 14;
 
 const EditingProcess = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [scales, setScales] = useState(steps.map(() => BASE_SCALE));
+  // Store transformation data in a single array of objects
+  const [transforms, setTransforms] = useState(steps.map(() => ({ scale: 1, x: 0 })));
   const sectionRef = useRef(null);
   const scrollerRef = useRef(null);
-  const cardRefs = useRef([]);
   const rafRef = useRef(null);
 
   useEffect(() => {
@@ -77,32 +79,52 @@ const EditingProcess = () => {
     return () => observer.disconnect();
   }, []);
 
-  // macOS Dock magnification: scale based on cursor distance
   const handleMouseMove = useCallback((e) => {
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
 
     rafRef.current = requestAnimationFrame(() => {
-      const mouseX = e.clientX;
-      const newScales = cardRefs.current.map((card) => {
-        if (!card) return BASE_SCALE;
-        const rect = card.getBoundingClientRect();
-        const cardCenterX = rect.left + rect.width / 2;
+      if (!scrollerRef.current) return;
+      
+      const scroller = scrollerRef.current;
+      const rect = scroller.getBoundingClientRect();
+      // Mouse X position relative to the scroller context
+      const mouseX = e.clientX - rect.left + scroller.scrollLeft;
+
+      // Calculate base positions and scales
+      const newScales = steps.map((_, i) => {
+        const cardCenterX = i * (CARD_WIDTH + CARD_GAP) + CARD_WIDTH / 2 + 20; // 20 is padding adjustment
         const distance = Math.abs(mouseX - cardCenterX);
-
+        
         if (distance > MAGNIFY_RANGE) return BASE_SCALE;
-
-        // Cosine curve for smooth falloff (like macOS Dock)
+        
+        // Smoother magnification curve
         const ratio = 1 - distance / MAGNIFY_RANGE;
-        const scale = BASE_SCALE + (MAX_SCALE - BASE_SCALE) * Math.cos((1 - ratio) * Math.PI / 2);
+        const scale = BASE_SCALE + (MAX_SCALE - BASE_SCALE) * Math.pow(Math.cos((1 - ratio) * Math.PI / 2), 2);
         return scale;
       });
-      setScales(newScales);
+
+      // Calculate X-offsets to prevent overlap (The macOS "shove" effect)
+      const newTransforms = newScales.map((scale, i) => {
+        // Each card is pushed by the full growth of all previous cards
+        // Growth is (scale - 1) * width. Scale happens from center, so 
+        // card i needs to shift by half of its own growth + full growth of predecessors
+        // to maintain exactly the same visual gap.
+        const myGrowth = (scale - 1) * CARD_WIDTH;
+        const precedingGrowth = newScales.slice(0, i).reduce((acc, s) => acc + (s - 1) * CARD_WIDTH, 0);
+        
+        return {
+          scale,
+          x: precedingGrowth + (myGrowth * 0.5)
+        };
+      });
+
+      setTransforms(newTransforms);
     });
   }, []);
 
   const handleMouseLeave = useCallback(() => {
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    setScales(steps.map(() => BASE_SCALE));
+    setTransforms(steps.map(() => ({ scale: 1, x: 0 })));
   }, []);
 
   return (
@@ -116,7 +138,6 @@ const EditingProcess = () => {
         </p>
       </div>
 
-      {/* Horizontal scrollable strip with Dock magnification */}
       <div className="process-carousel-wrapper">
         <div
           className={`process-scroller ${isVisible ? 'visible' : ''}`}
@@ -124,33 +145,44 @@ const EditingProcess = () => {
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         >
-          {steps.map((step, index) => {
-            const Icon = step.icon;
-            const scale = scales[index];
-            const isActive = scale > 1.05;
+          {/* Inner container that expands to accommodate the "dock" growth */}
+          <div className="process-inner">
+            {steps.map((step, index) => {
+              const Icon = step.icon;
+              const { scale, x } = transforms[index];
+              const isActive = scale > 1.05;
 
-            return (
-              <div
-                key={step.title}
-                ref={(el) => (cardRefs.current[index] = el)}
-                className={`process-step ${isVisible ? 'step-visible' : ''} ${isActive ? 'magnified' : ''}`}
-                style={{
-                  animationDelay: `${index * 120 + 200}ms`,
-                  transform: `scale(${scale})`,
-                  zIndex: isActive ? 10 : 2,
-                }}
-              >
-                <div className={`step-number step-number-${step.color}`}>
-                  {String(index + 1).padStart(2, '0')}
+              return (
+                <div
+                  key={step.title}
+                  className={`process-step ${isVisible ? 'step-visible' : ''} ${isActive ? 'magnified' : ''}`}
+                  style={{
+                    animationDelay: `${index * 120 + 200}ms`,
+                    transform: `translateX(${x}px) scale(${scale})`,
+                    zIndex: isActive ? 10 : 2,
+                  }}
+                >
+                  <div className={`step-number step-number-${step.color}`}>
+                    {String(index + 1).padStart(2, '0')}
+                  </div>
+                  <div className={`step-icon step-icon-${step.color}`}>
+                    <Icon 
+                      size={28} 
+                      style={{ 
+                        transform: `scale(${1 + (scale - 1) * 0.5})`,
+                        transition: 'transform 0.1s ease-out' 
+                      }} 
+                    />
+                  </div>
+                  <h3 className="step-title">{step.title}</h3>
+                  <p className="step-desc">{step.desc}</p>
+                  
+                  {/* Magnetic glow overlay */}
+                  {isActive && <div className="step-magnetic-glow" style={{ opacity: (scale - 1) * 3 }} />}
                 </div>
-                <div className={`step-icon step-icon-${step.color}`}>
-                  <Icon size={28} />
-                </div>
-                <h3 className="step-title">{step.title}</h3>
-                <p className="step-desc">{step.desc}</p>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
 

@@ -1,6 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Mail, MessageCircle, X } from 'lucide-react';
+import { Mail, MessageCircle, X, Zap } from 'lucide-react';
 import './FloatingContact.css';
+
+const InstagramIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+    <circle cx="12" cy="12" r="5"/>
+    <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
+  </svg>
+);
 
 const FloatingContact = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +20,7 @@ const FloatingContact = () => {
     const handleScroll = () => {
       setIsVisible(window.scrollY > window.innerHeight * 0.6);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -53,16 +61,16 @@ const FloatingContact = () => {
             rel="noreferrer"
             className="fc-link fc-link-instagram"
           >
-            <i className="fab fa-instagram" style={{ fontSize: '18px' }} />
+            <InstagramIcon size={18} />
             <span>Instagram</span>
           </a>
           <a
-            href="https://fiverr.com/YOUR_PROFILE"
+            href="https://www.fiverr.com/s/38rRj"
             target="_blank"
             rel="noreferrer"
             className="fc-link fc-link-fiverr"
           >
-            <i className="fas fa-bolt" style={{ fontSize: '18px' }} />
+            <Zap size={18} />
             <span>Fiverr</span>
           </a>
         </div>

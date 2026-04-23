@@ -63,13 +63,13 @@ const BeforeAfter = () => {
         >
           {/* Base Image (Raw/Before) */}
           <div className="ba-image raw">
-            <img src="/before.jpg" alt="Raw Image" className="raw-img"/>
+            <img src="/before.jpg" alt="Raw Image" className="raw-img" loading="lazy" decoding="async" width="1400" height="784" />
             <span className="ba-label label-left">RAW (LOG)</span>
           </div>
           
           {/* Overlay Image (Edited/After) */}
           <div className="ba-image edited" style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}>
-            <img src="/after.jpg" alt="Color Graded"/>
+            <img src="/after.jpg" alt="Color Graded" loading="lazy" decoding="async" width="1400" height="784" />
             <span className="ba-label label-right text-neon-blue">GRADED</span>
           </div>
           

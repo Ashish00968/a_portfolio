@@ -9,7 +9,7 @@ const portfolioData = [
     category: 'cinematic colour grading',
     desc: 'cinematic pacing , smooth flow and coulour grading from plain text to other',
     youtubeId: '7SS_xdbI3Xc', // Sethan Sunset
-    imgSrc: '/sethan-thumbnail.png',
+    imgSrc: '/sethan-thumbnail.jpg',
     colorClass: 'text-neon-blue border-neon-blue'
   },
   {
@@ -41,10 +41,12 @@ const portfolioData = [
   }
 ];
 
+// Touch detection outside component — runs once at module level
+const isTouchDevice = typeof window !== 'undefined' && 'ontouchstart' in window;
+
 const PortfolioItem = ({ item, openModal }) => {
   const cardRef = useRef(null);
   const spotlightRef = useRef(null);
-  const isTouchDevice = 'ontouchstart' in window;
 
   const handleMouseMove = useCallback((e) => {
     if (isTouchDevice) return;
@@ -68,7 +70,7 @@ const PortfolioItem = ({ item, openModal }) => {
       spotlightRef.current.style.opacity = '1';
       spotlightRef.current.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(0, 240, 255, 0.15) 0%, transparent 60%)`;
     }
-  }, [isTouchDevice]);
+  }, []);
 
   const handleMouseLeave = useCallback(() => {
     const card = cardRef.current;
@@ -104,7 +106,11 @@ const PortfolioItem = ({ item, openModal }) => {
       <img 
         src={item.imgSrc} 
         alt={item.title} 
-        className="portfolio-thumb-horizontal" 
+        className="portfolio-thumb-horizontal"
+        loading="lazy"
+        decoding="async"
+        width="1200"
+        height="675"
       />
       
       <div className="portfolio-content-horizontal">

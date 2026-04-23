@@ -3,16 +3,14 @@ import { Sun, Moon } from 'lucide-react';
 import './ThemeToggle.css';
 
 const ThemeToggle = () => {
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem('portfolio-theme');
+    return savedTheme || 'dark';
+  });
 
   useEffect(() => {
-    // Check for saved preference, otherwise strictly default to dark mode
-    const savedTheme = localStorage.getItem('portfolio-theme');
-    const initialTheme = savedTheme ? savedTheme : 'dark';
-    
-    setTheme(initialTheme);
-    document.documentElement.setAttribute('data-theme', initialTheme);
-  }, []);
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
 
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
