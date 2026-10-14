@@ -1,0 +1,368 @@
+/* --------------------------------------------------------------------------
+   TRAVEL PAGE STYLES
+   -------------------------------------------------------------------------- */
+
+.travel-page {
+  padding: 3rem 0 var(--space-2xl) 0;
+}
+
+.travel-ethos-section {
+  margin-bottom: var(--space-2xl);
+}
+
+.travel-ethos-banner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  border-left: 2px solid var(--accent-alpenglow);
+  border-radius: 6px;
+  padding: 2.25rem;
+}
+
+@media (min-width: 768px) {
+  .travel-ethos-banner {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.75rem;
+  }
+}
+
+.travel-ethos-icon {
+  color: var(--accent-alpenglow);
+  flex-shrink: 0;
+  padding-top: 4px;
+}
+
+.travel-ethos-content h3 {
+  font-size: 1.35rem;
+  margin-bottom: 0.5rem;
+}
+
+.travel-ethos-content p {
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+/* Regions Grid */
+.travel-regions-section {
+  margin-bottom: var(--space-2xl);
+  border-top: 1px solid var(--border-hairline);
+  padding-top: var(--space-2xl);
+}
+
+/* --------------------------------------------------------------------------
+   FEATURED EXPEDITION SPOTLIGHT
+   -------------------------------------------------------------------------- */
+.featured-expedition-section {
+  margin-bottom: var(--space-2xl);
+}
+
+.expedition-spotlight-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 0;
+}
+
+.expedition-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .expedition-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+.expedition-media-frame {
+  position: relative;
+  min-height: 280px;
+  background-color: #06090e;
+  overflow: hidden;
+}
+
+@media (min-width: 900px) {
+  .expedition-media-frame {
+    min-height: 100%;
+  }
+}
+
+.expedition-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  display: block;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.expedition-spotlight-card:hover .expedition-img {
+  transform: scale(1.02);
+}
+
+.expedition-overlay-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(6, 9, 14, 0.1) 0%,
+    rgba(6, 9, 14, 0.4) 60%,
+    rgba(6, 9, 14, 0.85) 100%
+  );
+  pointer-events: none;
+}
+
+.expedition-badge-strip {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.expedition-content {
+  padding: 2.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.expedition-header-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.expedition-alt-pill {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-cyan);
+  padding: 3px 8px;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 4px;
+}
+
+.expedition-title {
+  font-size: clamp(1.4rem, 2vw, 1.85rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+  letter-spacing: -0.02em;
+}
+
+.expedition-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-alpenglow);
+  margin-bottom: 1.25rem;
+}
+
+.expedition-notes {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 1.5rem;
+}
+
+.expedition-caption-box {
+  padding: 0.85rem 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 2px solid var(--accent-cyan);
+  border-radius: 0 4px 4px 0;
+}
+
+.expedition-caption-box .caption-text {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   REGIONS GRID & CARDS
+   -------------------------------------------------------------------------- */
+.travel-regions-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+}
+
+@media (min-width: 768px) {
+  .travel-regions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.region-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  border-radius: 6px;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.region-img-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background-color: #0d1116;
+}
+
+.region-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.region-card:hover .region-img {
+  transform: scale(1.03);
+}
+
+.region-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(6, 9, 14, 0.15) 0%,
+    rgba(6, 9, 14, 0.3) 50%,
+    rgba(6, 9, 14, 0.85) 100%
+  );
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+}
+
+.region-card-body {
+  padding: 1.5rem 1.75rem 1.75rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.region-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.region-status-badge {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  padding: 2px 7px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.status-visited {
+  background-color: rgba(212, 138, 82, 0.12);
+  color: var(--accent-alpenglow);
+  border: 1px solid rgba(212, 138, 82, 0.3);
+}
+
+.region-elevation {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.region-card h3 {
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.25rem;
+}
+
+.region-location {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.region-card p {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.region-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* Industry Collaboration */
+.industry-collab-section {
+  border-top: 1px solid var(--border-hairline);
+  padding-top: var(--space-2xl);
+  margin-bottom: var(--space-xl);
+}
+
+.industry-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  border-radius: 6px;
+  padding: 2.25rem;
+}
+
+.industry-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.industry-icon {
+  color: var(--accent-alpenglow);
+}
+
+.industry-header h3 {
+  font-size: 1.35rem;
+  margin-bottom: 0.2rem;
+}
+
+.industry-sub {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.industry-text {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+/* Truth note */
+.travel-truth-note {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-hairline);
+}
+
+.travel-truth-note p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}

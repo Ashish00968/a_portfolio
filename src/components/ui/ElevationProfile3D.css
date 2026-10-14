@@ -1,0 +1,230 @@
+/* --------------------------------------------------------------------------
+   3D TOPOGRAPHIC DEM ELEVATION & GPX WAYPOINT INSPECTOR
+   -------------------------------------------------------------------------- */
+
+.elev3d-wrapper {
+  position: relative;
+  margin-top: 1.75rem;
+  padding: 1.25rem 1.35rem;
+  border-radius: 10px;
+  background: linear-gradient(
+    165deg,
+    rgba(13, 18, 26, 0.88) 0%,
+    rgba(8, 12, 18, 0.94) 100%
+  );
+  border: 1px solid rgba(56, 189, 248, 0.18);
+  box-shadow: 0 20px 44px -16px rgba(0, 0, 0, 0.72),
+              inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+  perspective: 1000px;
+}
+
+.elev3d-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.elev3d-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.elev3d-heading {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.elev3d-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  background-color: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: #dff2fe;
+  font-variant-numeric: tabular-nums;
+}
+
+.elev3d-badge-icon {
+  color: var(--accent-cyan);
+}
+
+/* 3D Tilted Topographic Stage */
+.elev3d-stage {
+  position: relative;
+  height: 170px;
+  border-radius: 8px;
+  background-color: rgba(6, 9, 14, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  overflow: hidden;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.elev3d-grid-floor {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(56, 189, 248, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(56, 189, 248, 0.06) 1px, transparent 1px);
+  background-size: 36px 28px;
+  transform: perspective(500px) rotateX(42deg) scale(1.25);
+  transform-origin: center bottom;
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.elev3d-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transform: translateZ(8px);
+}
+
+.elev3d-nodes-layer {
+  position: absolute;
+  inset: 0;
+  transform: translateZ(22px);
+}
+
+.elev3d-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: transform var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out);
+}
+
+.elev3d-node:hover,
+.elev3d-node:focus-visible {
+  transform: translate(-50%, -50%) scale(1.12);
+  color: var(--text-primary);
+  outline: none;
+}
+
+.elev3d-node-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: #161e27;
+  border: 2px solid #38bdf8;
+  transition: background-color var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.elev3d-node.active .elev3d-node-dot {
+  background-color: #d48a52;
+  border-color: #fff;
+  box-shadow: 0 0 12px rgba(212, 138, 82, 0.9);
+}
+
+.elev3d-node-pulse {
+  position: absolute;
+  top: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: rgba(212, 138, 82, 0.28);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity var(--duration-fast) var(--ease-out),
+              transform var(--duration-normal) var(--ease-out);
+  pointer-events: none;
+}
+
+.elev3d-node.active .elev3d-node-pulse {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+.elev3d-node-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 2px 5px;
+  border-radius: 4px;
+  background-color: rgba(6, 9, 14, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.elev3d-node.active .elev3d-node-label {
+  color: #fff;
+  border-color: rgba(212, 138, 82, 0.55);
+  background-color: rgba(24, 18, 14, 0.92);
+}
+
+/* Bottom Telemetry Readout Strip */
+.elev3d-readout-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-top: 0.95rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 680px) {
+  .elev3d-readout-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}
+
+.elev3d-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.elev3d-stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.elev3d-stat-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.elev3d-stat-value.accent-cyan {
+  color: var(--accent-cyan);
+}
+
+.elev3d-inline-icon {
+  color: var(--accent-alpenglow);
+  flex-shrink: 0;
+}

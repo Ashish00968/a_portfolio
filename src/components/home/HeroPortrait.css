@@ -1,0 +1,249 @@
+/* --------------------------------------------------------------------------
+   3D SPATIAL HERO PORTRAIT STYLING
+   Perspective-tilted frame with floating Z-depth telemetry HUD & reticles
+   -------------------------------------------------------------------------- */
+
+.portrait-container {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  perspective: 1100px;
+}
+
+.portrait-ambient-halo {
+  position: absolute;
+  inset: -14px;
+  background: radial-gradient(
+    circle at 60% 35%,
+    rgba(56, 189, 248, 0.14),
+    rgba(212, 138, 82, 0.08) 55%,
+    transparent 75%
+  );
+  filter: blur(26px);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.85;
+  transition: opacity var(--duration-normal) var(--ease-out);
+}
+
+.portrait-container:hover .portrait-ambient-halo {
+  opacity: 1;
+}
+
+.portrait-frame {
+  position: relative;
+  z-index: 1;
+  background-color: rgba(17, 22, 28, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0 26px 54px -16px rgba(0, 0, 0, 0.78),
+              0 0 28px -10px rgba(56, 189, 248, 0.14),
+              inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: border-color var(--duration-normal) var(--ease-out),
+              box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.portrait-frame:hover {
+  border-color: rgba(56, 189, 248, 0.34);
+  box-shadow: 0 32px 64px -16px rgba(0, 0, 0, 0.85),
+              0 0 34px -8px rgba(56, 189, 248, 0.22),
+              inset 0 1px 0 0 rgba(255, 255, 255, 0.18);
+}
+
+/* Floating 3D HUD Telemetry Pill elevated on Z-axis */
+.portrait-floating-hud {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background-color: rgba(6, 9, 14, 0.76);
+  border: 1px solid rgba(56, 189, 248, 0.32);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #e2f1ff;
+  box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.65);
+  transform: translateZ(28px);
+  pointer-events: none;
+}
+
+.portrait-hud-icon {
+  color: var(--accent-cyan);
+}
+
+.portrait-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 4.6;
+  overflow: hidden;
+  border-radius: 6px;
+  background-color: #0d1116;
+  transform: translateZ(10px);
+}
+
+@media (min-width: 992px) {
+  .portrait-image-wrapper {
+    aspect-ratio: 4 / 4.8;
+  }
+}
+
+.portrait-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  filter: contrast(1.05) brightness(0.96);
+  will-change: transform;
+}
+
+.portrait-overlay-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 13, 16, 0.04) 0%,
+    rgba(10, 13, 16, 0.16) 62%,
+    rgba(10, 13, 16, 0.72) 100%
+  );
+  pointer-events: none;
+}
+
+/* Specular light reflection sweeping across portrait glass */
+.portrait-specular-glare {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    360px circle at var(--glare-x, 50%) var(--glare-y, 30%),
+    rgba(255, 255, 255, 0.11),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity var(--duration-normal) var(--ease-out);
+  pointer-events: none;
+}
+
+.portrait-frame:hover .portrait-specular-glare {
+  opacity: 1;
+}
+
+/* Topographic optical corner reticles */
+.reticle-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: rgba(242, 245, 248, 0.38);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.reticle-corner.tl {
+  top: 10px;
+  left: 10px;
+  border-top: 1.5px solid rgba(56, 189, 248, 0.55);
+  border-left: 1.5px solid rgba(56, 189, 248, 0.55);
+}
+
+.reticle-corner.tr {
+  top: 10px;
+  right: 10px;
+  border-top: 1.5px solid rgba(56, 189, 248, 0.55);
+  border-right: 1.5px solid rgba(56, 189, 248, 0.55);
+}
+
+.reticle-corner.bl {
+  bottom: 10px;
+  left: 10px;
+  border-bottom: 1.5px solid rgba(212, 138, 82, 0.55);
+  border-left: 1.5px solid rgba(212, 138, 82, 0.55);
+}
+
+.reticle-corner.br {
+  bottom: 10px;
+  right: 10px;
+  border-bottom: 1.5px solid rgba(212, 138, 82, 0.55);
+  border-right: 1.5px solid rgba(212, 138, 82, 0.55);
+}
+
+.portrait-metadata {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 4px 2px 4px;
+  transform: translateZ(20px);
+}
+
+.portrait-meta-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.portrait-coord {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--accent-alpenglow);
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.portrait-region {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.portrait-meta-right {
+  display: flex;
+  align-items: center;
+}
+
+.portrait-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 9px;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+}
+
+.portrait-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #38bdf8;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.85);
+}
+
+.portrait-placeholder-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-hairline);
+  border-radius: 3px;
+}
