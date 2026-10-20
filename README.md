@@ -4,7 +4,14 @@ Cinematic, spaceship-inspired personal portfolio for **Ashish Nirankari** — Co
 
 ---
 
-## 🏔️ Architecture & Dedicated Routes (v3.1)
+## 🌐 Live Deployments
+
+- **GitHub Pages**: [https://ashish00968.github.io/a_portfolio/](https://ashish00968.github.io/a_portfolio/)
+- **Netlify**: Auto-deployed via GitHub webhook with `netlify.toml` and `public/_redirects`
+
+---
+
+## 🏔️ Architecture & Dedicated Routes (v3.2)
 
 The site is built with **React 19**, **Vite 8**, **React Router 7**, and **Framer Motion**, utilizing route code-splitting (`React.lazy()` + `<Suspense>`) for instant initial paint and zero layout shifts:
 

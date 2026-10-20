@@ -12,7 +12,7 @@
 This project is a high-performance, multi-route web application engineered with **React 19**, **React Router DOM**, and bundled with **Vite 8**. It showcases the multifaceted identity of Ashish Nirankari: Computer Science student at IIITDM Jabalpur, creator of the flagship 3D Himalayan travel atlas (*Discover Himalayan Trails*), geospatial systems builder, and high-altitude visual creator.
 
 ### Architectural Core Principles
-1. **Multi-Route Navigation with SPA Resilience**: Clean dedicated routes powered by `react-router-dom` with Netlify fallback routing (`public/_redirects`).
+1. **Multi-Route Navigation with Dual-Platform SPA Resilience**: Clean dedicated routes powered by `react-router-dom` with Netlify fallback routing (`public/_redirects`), GitHub Pages fallback routing (`dist/404.html`), dynamic `base` and `basename` resolution, and universal asset paths (`getAssetPath()`).
 2. **Spaceship Aesthetic & Dynamic Motion**:
    - Cosmic Obsidian base palette (`#06090e`, `#0a0d10`, `#11161c`).
    - `SpaceshipBackground.jsx`: Lightweight, hardware-accelerated starfield and orbital nebula canvas respecting `prefers-reduced-motion`.
@@ -202,3 +202,38 @@ Documented in `portfolioData.js` and rendered via `SpotlightCard` components on 
 - **Linting**: Run `npm run lint` — strictly maintained at 0 warnings and 0 errors.
 - **Production Build**: Run `npm run build` — verified Rollup chunk generation with no CSS minify errors.
 - **Visual Validation**: Verified at desktop (1440×900) and mobile (390×844) viewport dimensions using Playwright MCP screenshots.
+
+---
+
+## 7. Dual-Platform Deployment Architecture (GitHub Pages & Netlify)
+
+The application supports simultaneous zero-configuration deployment to both **GitHub Pages** (subpath `/a_portfolio/`) and **Netlify** (root `/`):
+
+1. **Dynamic Vite Base Path (`vite.config.js`)**:
+   ```javascript
+   base: process.env.VITE_BASE || (process.env.GITHUB_ACTIONS === 'true' || process.env.GITHUB_PAGES === 'true' ? '/a_portfolio/' : '/')
+   ```
+   - On GitHub Actions CI/CD: Automatically builds with `base: '/a_portfolio/'`.
+   - On Netlify / Local: Automatically builds with `base: '/'`.
+
+2. **Automatic GitHub Pages 404 SPA Fallback (`copy-404-for-gh-pages` Plugin)**:
+   - Vite custom plugin triggers on `closeBundle` to copy `dist/index.html` to `dist/404.html`.
+   - Ensures that refreshing or directly requesting deep nested routes (e.g. `/a_portfolio/tech-stack/discover-himalayan-trails`) returns the client bundle instead of a GitHub Pages 404 dead end.
+
+3. **Dynamic Router Mount (`src/App.jsx`)**:
+   ```jsx
+   <BrowserRouter basename={import.meta.env.BASE_URL}>
+   ```
+   - Automatically handles the subpath prefix when running under `/a_portfolio/`, without breaking root routes on Netlify.
+
+4. **Universal Asset Resolution Helper (`getAssetPath`)**:
+   - Centralized in `src/data/portfolioData.js`:
+     ```javascript
+     export const getAssetPath = (path) => {
+       const base = import.meta.env.BASE_URL || '/';
+       const cleanBase = base.endsWith('/') ? base : `${base}/`;
+       const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+       return `${cleanBase}${cleanPath}`;
+     };
+     ```
+   - Protects all image, thumbnail, and media references from resolving to missing root assets when hosted in subfolders.
