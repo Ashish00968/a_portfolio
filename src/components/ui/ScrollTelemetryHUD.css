@@ -1,0 +1,196 @@
+/* ==========================================================================
+   SCROLL TELEMETRY HUD — FLOATING 3D HIMALAYAN ALTIMETER & GIMBAL
+   ========================================================================== */
+
+.scroll-telemetry-hud {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  z-index: 85;
+  pointer-events: auto;
+}
+
+.hud-altimeter-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 12px 7px 9px;
+  background-color: rgba(10, 13, 16, 0.82);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  border-radius: 9999px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.72),
+              0 0 18px -4px rgba(56, 189, 248, 0.18),
+              inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  cursor: pointer;
+  outline: none;
+  transition: transform var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.hud-altimeter-pill:hover {
+  border-color: rgba(56, 189, 248, 0.55);
+  box-shadow: 0 12px 34px -8px rgba(0, 0, 0, 0.8),
+              0 0 24px -4px rgba(56, 189, 248, 0.28),
+              inset 0 1px 0 0 rgba(255, 255, 255, 0.16);
+  transform: translateY(-2px);
+}
+
+.hud-altimeter-pill:active {
+  transform: scale(0.97) translateY(0);
+}
+
+/* 3D Attitude Gimbal Stage */
+.hud-gimbal-stage {
+  width: 26px;
+  height: 26px;
+  perspective: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.hud-gimbal-sphere {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  background: radial-gradient(circle at 40% 40%, rgba(56, 189, 248, 0.18), rgba(10, 13, 16, 0.85));
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.gimbal-horizon-line {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background-color: rgba(56, 189, 248, 0.75);
+}
+
+.gimbal-center-pip {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: var(--accent-alpenglow, #d48a52);
+  box-shadow: 0 0 6px var(--accent-alpenglow, #d48a52);
+}
+
+/* Telemetry Readout Column */
+.hud-readout-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  text-align: left;
+}
+
+.hud-primary-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  line-height: 1.1;
+}
+
+.hud-mountain-icon {
+  color: var(--accent-cyan, #38bdf8);
+  flex-shrink: 0;
+}
+
+.hud-altitude-val {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+}
+
+.hud-unit {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--accent-cyan, #38bdf8);
+  margin-left: 1px;
+}
+
+.hud-pct-badge {
+  font-size: 0.62rem;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background-color: rgba(56, 189, 248, 0.12);
+  color: var(--accent-cyan, #38bdf8);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  margin-left: 2px;
+}
+
+.hud-waypoint-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* Action indicator */
+.hud-action-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  margin-left: 2px;
+}
+
+.hud-arrow {
+  transition: transform var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out);
+}
+
+.hud-arrow.hovered {
+  color: var(--accent-cyan, #38bdf8);
+  transform: translateY(-2px);
+}
+
+/* Mobile responsive compact state */
+@media (max-width: 640px) {
+  .scroll-telemetry-hud {
+    bottom: 16px;
+    right: 16px;
+  }
+
+  .hud-altimeter-pill {
+    padding: 6px 10px;
+    gap: 7px;
+  }
+
+  .hud-waypoint-label {
+    display: none;
+  }
+
+  .hud-altitude-val {
+    font-size: 0.74rem;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .hud-altimeter-pill {
+    transition: none;
+  }
+
+  .hud-altimeter-pill:hover {
+    transform: none;
+  }
+
+  .hud-gimbal-sphere {
+    transform: none !important;
+  }
+}

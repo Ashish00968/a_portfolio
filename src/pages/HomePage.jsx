@@ -18,6 +18,7 @@ import {
 import HeroPortrait from '../components/home/HeroPortrait';
 import SpotlightCard from '../components/ui/SpotlightCard';
 import ElevationProfile3D from '../components/ui/ElevationProfile3D';
+import Scroll3DReveal from '../components/ui/Scroll3DReveal';
 import { dhtCaseStudy, profile, getAssetPath } from '../data/portfolioData';
 import './HomePage.css';
 
@@ -33,7 +34,7 @@ const HomePage = () => {
     restDelta: 0.001,
   });
 
-  // 2. Hero subtle scroll-driven parallax and gentle fade
+  // 2. Hero subtle scroll-driven parallax, 3D pitch and gentle fade
   const { scrollYProgress: heroProgress } = useScroll({
     target: heroRef,
     offset: ['start start', 'end start'],
@@ -48,6 +49,16 @@ const HomePage = () => {
     heroProgress,
     [0, 1],
     [0, shouldReduceMotion ? 0 : 54]
+  );
+  const heroPitch = useTransform(
+    heroProgress,
+    [0, 1],
+    shouldReduceMotion ? ['0deg', '0deg'] : ['0deg', '8.5deg']
+  );
+  const heroDepth = useTransform(
+    heroProgress,
+    [0, 1],
+    shouldReduceMotion ? ['0px', '0px'] : ['0px', '-36px']
   );
   const heroOpacity = useTransform(
     heroProgress,
@@ -136,7 +147,13 @@ const HomePage = () => {
             variants={heroContainerVariants}
             initial="hidden"
             animate="visible"
-            style={{ y: heroTextY, opacity: heroOpacity }}
+            style={{
+              y: heroTextY,
+              opacity: heroOpacity,
+              rotateX: heroPitch,
+              translateZ: heroDepth,
+              transformStyle: 'preserve-3d',
+            }}
           >
             {/* Spaceship Orbital Telemetry Banner */}
             <motion.div variants={heroItemVariants} className="hero-telemetry-banner">
@@ -225,12 +242,7 @@ const HomePage = () => {
       {/* ------------------------------------------------------------------ */}
       <section className="section-dht-feature">
         <div className="container">
-          <motion.div
-            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-70px' }}
-            transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-          >
+          <Scroll3DReveal pitch={6.5} depth={-38}>
             <SpotlightCard
               className="dht-feature-card"
               spotlightColor="rgba(56, 189, 248, 0.2)"
@@ -339,7 +351,7 @@ const HomePage = () => {
               {/* Interactive 3D DEM Elevation & GPX Waypoint Inspector */}
               <ElevationProfile3D />
             </SpotlightCard>
-          </motion.div>
+          </Scroll3DReveal>
         </div>
       </section>
 
@@ -376,27 +388,29 @@ const HomePage = () => {
               whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
               className="preview-card-motion"
             >
-              <SpotlightCard className="preview-card" spotlightColor="rgba(56, 189, 248, 0.16)">
-                <div className="preview-card-header">
-                  <div className="preview-icon-wrapper">
-                    <Cpu size={20} />
+              <Scroll3DReveal pitch={5.5} depth={-26}>
+                <SpotlightCard className="preview-card" spotlightColor="rgba(56, 189, 248, 0.16)">
+                  <div className="preview-card-header">
+                    <div className="preview-icon-wrapper">
+                      <Cpu size={20} />
+                    </div>
+                    <span className="preview-cat">Pillar 01</span>
                   </div>
-                  <span className="preview-cat">Pillar 01</span>
-                </div>
-                <h3>Tech Stack</h3>
-                <p>
-                  React 19, TypeScript, Mapbox 3D DEM integrations, reactive state, and media delivery engines optimized for alpine trailheads.
-                </p>
-                <div className="preview-meta">
-                  <span className="preview-tag">React 19</span>
-                  <span className="preview-tag">Mapbox 3D</span>
-                  <span className="preview-tag">Zustand</span>
-                </div>
-                <Link to="/tech-stack" className="preview-link">
-                  <span>Inspect Tech Stack</span>
-                  <ArrowRight size={15} />
-                </Link>
-              </SpotlightCard>
+                  <h3>Tech Stack</h3>
+                  <p>
+                    React 19, TypeScript, Mapbox 3D DEM integrations, reactive state, and media delivery engines optimized for alpine trailheads.
+                  </p>
+                  <div className="preview-meta">
+                    <span className="preview-tag">React 19</span>
+                    <span className="preview-tag">Mapbox 3D</span>
+                    <span className="preview-tag">Zustand</span>
+                  </div>
+                  <Link to="/tech-stack" className="preview-link">
+                    <span>Inspect Tech Stack</span>
+                    <ArrowRight size={15} />
+                  </Link>
+                </SpotlightCard>
+              </Scroll3DReveal>
             </motion.div>
 
             {/* Preview 2: Travel */}
@@ -406,27 +420,29 @@ const HomePage = () => {
               whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
               className="preview-card-motion"
             >
-              <SpotlightCard className="preview-card" spotlightColor="rgba(212, 138, 82, 0.16)">
-                <div className="preview-card-header">
-                  <div className="preview-icon-wrapper accent-mountain">
-                    <MapPin size={20} />
+              <Scroll3DReveal pitch={5.5} depth={-26}>
+                <SpotlightCard className="preview-card" spotlightColor="rgba(212, 138, 82, 0.16)">
+                  <div className="preview-card-header">
+                    <div className="preview-icon-wrapper accent-mountain">
+                      <MapPin size={20} />
+                    </div>
+                    <span className="preview-cat">Pillar 02</span>
                   </div>
-                  <span className="preview-cat">Pillar 02</span>
-                </div>
-                <h3>Travel & Field Notes</h3>
-                <p>
-                  Firsthand trail logistics, high-altitude acclimatization, elevation checkpoints, and honest documentation across Himachal Pradesh.
-                </p>
-                <div className="preview-meta">
-                  <span className="preview-tag">Solang Valley</span>
-                  <span className="preview-tag">Sethan / Hampta</span>
-                  <span className="preview-tag">Kinnaur</span>
-                </div>
-                <Link to="/travel" className="preview-link">
-                  <span>Read Field Travel</span>
-                  <ArrowRight size={15} />
-                </Link>
-              </SpotlightCard>
+                  <h3>Travel & Field Notes</h3>
+                  <p>
+                    Firsthand trail logistics, high-altitude acclimatization, elevation checkpoints, and honest documentation across Himachal Pradesh.
+                  </p>
+                  <div className="preview-meta">
+                    <span className="preview-tag">Solang Valley</span>
+                    <span className="preview-tag">Sethan / Hampta</span>
+                    <span className="preview-tag">Kinnaur</span>
+                  </div>
+                  <Link to="/travel" className="preview-link">
+                    <span>Read Field Travel</span>
+                    <ArrowRight size={15} />
+                  </Link>
+                </SpotlightCard>
+              </Scroll3DReveal>
             </motion.div>
 
             {/* Preview 3: Photography & Videography */}
@@ -436,27 +452,29 @@ const HomePage = () => {
               whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
               className="preview-card-motion"
             >
-              <SpotlightCard className="preview-card" spotlightColor="rgba(129, 140, 248, 0.16)">
-                <div className="preview-card-header">
-                  <div className="preview-icon-wrapper accent-video">
-                    <Camera size={20} />
+              <Scroll3DReveal pitch={5.5} depth={-26}>
+                <SpotlightCard className="preview-card" spotlightColor="rgba(129, 140, 248, 0.16)">
+                  <div className="preview-card-header">
+                    <div className="preview-icon-wrapper accent-video">
+                      <Camera size={20} />
+                    </div>
+                    <span className="preview-cat">Pillar 03</span>
                   </div>
-                  <span className="preview-cat">Pillar 03</span>
-                </div>
-                <h3>Photography & Videography</h3>
-                <p>
-                  RAW LOG alpenglow color science, interactive before/after tone curves, and rhythmic mountain edits synced to natural audio Foley.
-                </p>
-                <div className="preview-meta">
-                  <span className="preview-tag">Himalayan Stills</span>
-                  <span className="preview-tag">RAW Grading</span>
-                  <span className="preview-tag">Cinematic Reels</span>
-                </div>
-                <Link to="/photography-video" className="preview-link">
-                  <span>View Stills & Edits</span>
-                  <ArrowRight size={15} />
-                </Link>
-              </SpotlightCard>
+                  <h3>Photography & Videography</h3>
+                  <p>
+                    RAW LOG alpenglow color science, interactive before/after tone curves, and rhythmic mountain edits synced to natural audio Foley.
+                  </p>
+                  <div className="preview-meta">
+                    <span className="preview-tag">Himalayan Stills</span>
+                    <span className="preview-tag">RAW Grading</span>
+                    <span className="preview-tag">Cinematic Reels</span>
+                  </div>
+                  <Link to="/photography-video" className="preview-link">
+                    <span>View Stills & Edits</span>
+                    <ArrowRight size={15} />
+                  </Link>
+                </SpotlightCard>
+              </Scroll3DReveal>
             </motion.div>
           </motion.div>
         </div>
@@ -467,12 +485,7 @@ const HomePage = () => {
       {/* ------------------------------------------------------------------ */}
       <section className="section-ethos">
         <div className="container-narrow">
-          <motion.div
-            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 24, scale: 0.98 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-          >
+          <Scroll3DReveal pitch={6.5} depth={-32}>
             <SpotlightCard className="ethos-card" spotlightColor="rgba(56, 189, 248, 0.14)">
               <span className="eyebrow">The Mountain Connection</span>
               <blockquote className="ethos-quote">
@@ -486,7 +499,7 @@ const HomePage = () => {
                 </Link>
               </div>
             </SpotlightCard>
-          </motion.div>
+          </Scroll3DReveal>
         </div>
       </section>
     </div>

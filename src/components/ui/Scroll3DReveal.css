@@ -1,0 +1,31 @@
+/* ==========================================================================
+   SCROLL 3D REVEAL — 3D PERSPECTIVE STAGE & MOTION TOKENS
+   Hardware-accelerated perspective viewport with zero layout shifts.
+   ========================================================================== */
+
+.scroll-3d-perspective-stage {
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+  transform-style: preserve-3d;
+  width: 100%;
+  position: relative;
+}
+
+.scroll-3d-plane {
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  width: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-3d-perspective-stage {
+    perspective: none;
+  }
+
+  .scroll-3d-plane {
+    transform: none !important;
+  }
+}

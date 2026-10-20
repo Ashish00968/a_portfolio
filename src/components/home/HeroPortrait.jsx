@@ -15,6 +15,7 @@ import {
   useMotionValue,
   useSpring,
   useTransform,
+  useScroll,
 } from 'framer-motion';
 import { Camera, Compass } from 'lucide-react';
 import { profile } from '../../data/portfolioData';
@@ -63,6 +64,23 @@ const HeroPortrait = () => {
   const glareX = useTransform(smoothX, [-0.5, 0.5], ['15%', '85%']);
   const glareY = useTransform(smoothY, [-0.5, 0.5], ['15%', '85%']);
 
+  // Scroll-driven 3D pitch and depth exit
+  const { scrollYProgress: portraitScroll } = useScroll({
+    target: frameRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const scrollPitch = useTransform(
+    portraitScroll,
+    [0, 1],
+    shouldReduceMotion ? ['0deg', '0deg'] : ['0deg', '10.5deg']
+  );
+  const scrollDepthZ = useTransform(
+    portraitScroll,
+    [0, 1],
+    shouldReduceMotion ? ['0px', '0px'] : ['0px', '-42px']
+  );
+
   useEffect(() => {
     const img = new Image();
     img.src = profile.portrait.customImagePath;
@@ -101,16 +119,24 @@ const HeroPortrait = () => {
       <div className="portrait-ambient-halo" aria-hidden="true" />
 
       <motion.div
-        className="portrait-frame"
-        initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.96, y: 12 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.55, ease: [0.23, 1, 0.32, 1] }}
+        className="portrait-scroll-tilt-wrapper"
         style={{
-          rotateX,
-          rotateY,
+          rotateX: scrollPitch,
+          translateZ: scrollDepthZ,
           transformStyle: 'preserve-3d',
         }}
       >
+        <motion.div
+          className="portrait-frame"
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.96, y: 12 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.55, ease: [0.23, 1, 0.32, 1] }}
+          style={{
+            rotateX,
+            rotateY,
+            transformStyle: 'preserve-3d',
+          }}
+        >
         {/* Top-left floating 3D HUD Telemetry Pill (Z-elevated) */}
         <div className="portrait-floating-hud" aria-hidden="true">
           <Compass size={12} className="portrait-hud-icon" />
@@ -171,6 +197,7 @@ const HeroPortrait = () => {
             )}
           </div>
         </div>
+      </motion.div>
       </motion.div>
     </div>
   );

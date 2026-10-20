@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, ArrowUpRight, Copy, Check, Compass } from 'lucide-react';
 import SpotlightCard from '../components/ui/SpotlightCard';
+import Scroll3DReveal from '../components/ui/Scroll3DReveal';
 import { profile } from '../data/portfolioData';
 import './ContactPage.css';
 
@@ -59,127 +60,133 @@ const ContactPage = () => {
         <div className="contact-grid">
           {/* Left Column: Direct channels */}
           <div className="contact-channels">
-            <SpotlightCard className="channel-card highlight" spotlightColor="rgba(56, 189, 248, 0.2)">
-              <span className="channel-label">Direct Communication Channel</span>
-              <div className="channel-email-row">
-                <a href={`mailto:${profile.social.email}`} className="email-address">
-                  {profile.social.email}
-                </a>
-                <button
-                  type="button"
-                  className="copy-btn"
-                  onClick={handleCopyEmail}
-                  aria-label="Copy email address"
-                  title="Copy email to clipboard"
-                >
-                  {copied ? <Check size={16} /> : <Copy size={16} />}
-                  <span>{copied ? 'Copied' : 'Copy'}</span>
-                </button>
-              </div>
-              <p className="channel-hint">
-                Best way to get in touch. Answered directly by Ashish.
-              </p>
-            </SpotlightCard>
+            <Scroll3DReveal pitch={6} depth={-28}>
+              <SpotlightCard className="channel-card highlight" spotlightColor="rgba(56, 189, 248, 0.2)">
+                <span className="channel-label">Direct Communication Channel</span>
+                <div className="channel-email-row">
+                  <a href={`mailto:${profile.social.email}`} className="email-address">
+                    {profile.social.email}
+                  </a>
+                  <button
+                    type="button"
+                    className="copy-btn"
+                    onClick={handleCopyEmail}
+                    aria-label="Copy email address"
+                    title="Copy email to clipboard"
+                  >
+                    {copied ? <Check size={16} /> : <Copy size={16} />}
+                    <span>{copied ? 'Copied' : 'Copy'}</span>
+                  </button>
+                </div>
+                <p className="channel-hint">
+                  Best way to get in touch. Answered directly by Ashish.
+                </p>
+              </SpotlightCard>
+            </Scroll3DReveal>
 
             {/* Social & Web Profiles */}
-            <SpotlightCard className="channel-card">
-              <span className="channel-label">Verified Profiles</span>
-              <ul className="verified-links-list">
-                <li>
-                  <a
-                    href={profile.social.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="verified-link-item"
-                  >
-                    <div className="vlink-icon"><InstagramIcon size={18} /></div>
-                    <div className="vlink-text">
-                      <span className="vlink-title">Instagram</span>
-                      <span className="vlink-sub">{profile.social.instagramHandle}</span>
-                    </div>
-                    <ArrowUpRight size={16} className="vlink-arrow" />
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={profile.social.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="verified-link-item"
-                  >
-                    <div className="vlink-icon"><GithubIcon size={18} /></div>
-                    <div className="vlink-text">
-                      <span className="vlink-title">GitHub</span>
-                      <span className="vlink-sub">Ashish00968</span>
-                    </div>
-                    <ArrowUpRight size={16} className="vlink-arrow" />
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={profile.social.dhtUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="verified-link-item"
-                  >
-                    <div className="vlink-icon"><Compass size={18} /></div>
-                    <div className="vlink-text">
-                      <span className="vlink-title">Discover Himalayan Trails</span>
-                      <span className="vlink-sub">discoverhimalayantrails.com</span>
-                    </div>
-                    <ArrowUpRight size={16} className="vlink-arrow" />
-                  </a>
-                </li>
-              </ul>
-            </SpotlightCard>
+            <Scroll3DReveal pitch={5.5} depth={-26}>
+              <SpotlightCard className="channel-card">
+                <span className="channel-label">Verified Profiles</span>
+                <ul className="verified-links-list">
+                  <li>
+                    <a
+                      href={profile.social.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="verified-link-item"
+                    >
+                      <div className="vlink-icon"><InstagramIcon size={18} /></div>
+                      <div className="vlink-text">
+                        <span className="vlink-title">Instagram</span>
+                        <span className="vlink-sub">{profile.social.instagramHandle}</span>
+                      </div>
+                      <ArrowUpRight size={16} className="vlink-arrow" />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href={profile.social.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="verified-link-item"
+                    >
+                      <div className="vlink-icon"><GithubIcon size={18} /></div>
+                      <div className="vlink-text">
+                        <span className="vlink-title">GitHub</span>
+                        <span className="vlink-sub">Ashish00968</span>
+                      </div>
+                      <ArrowUpRight size={16} className="vlink-arrow" />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href={profile.social.dhtUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="verified-link-item"
+                    >
+                      <div className="vlink-icon"><Compass size={18} /></div>
+                      <div className="vlink-text">
+                        <span className="vlink-title">Discover Himalayan Trails</span>
+                        <span className="vlink-sub">discoverhimalayantrails.com</span>
+                      </div>
+                      <ArrowUpRight size={16} className="vlink-arrow" />
+                    </a>
+                  </li>
+                </ul>
+              </SpotlightCard>
+            </Scroll3DReveal>
           </div>
 
           {/* Right Column: Direct Mail Composer */}
           <div className="contact-composer">
-            <SpotlightCard className="composer-card" spotlightColor="rgba(56, 189, 248, 0.16)">
-              <span className="channel-label">Compose Message</span>
-              <h3>Send an Email</h3>
-              <p className="composer-intro">
-                Prefill your message below to open directly in your mail application:
-              </p>
-
-              <form onSubmit={handleDirectEmail} className="composer-form">
-                <div className="form-group">
-                  <label htmlFor="contact-subject">Subject</label>
-                  <input
-                    id="contact-subject"
-                    type="text"
-                    placeholder="e.g. Tech stack project / Mountain travel atlas discussion"
-                    value={subject}
-                    onChange={(e) => setSubject(e.target.value)}
-                    className="form-input"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="contact-message">Message</label>
-                  <textarea
-                    id="contact-message"
-                    rows={5}
-                    placeholder="Briefly describe your project, timeline, or idea..."
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    className="form-textarea"
-                  ></textarea>
-                </div>
-
-                <button type="submit" className="btn btn-primary composer-submit-btn">
-                  <Mail size={16} />
-                  <span>Open in Mail Client</span>
-                </button>
-              </form>
-
-              <div className="composer-note">
-                <p>
-                  No simulated submission form. This directly triggers your mail app with Ashish's verified address prefilled.
+            <Scroll3DReveal pitch={6} depth={-32}>
+              <SpotlightCard className="composer-card" spotlightColor="rgba(56, 189, 248, 0.16)">
+                <span className="channel-label">Compose Message</span>
+                <h3>Send an Email</h3>
+                <p className="composer-intro">
+                  Prefill your message below to open directly in your mail application:
                 </p>
-              </div>
-            </SpotlightCard>
+
+                <form onSubmit={handleDirectEmail} className="composer-form">
+                  <div className="form-group">
+                    <label htmlFor="contact-subject">Subject</label>
+                    <input
+                      id="contact-subject"
+                      type="text"
+                      placeholder="e.g. Tech stack project / Mountain travel atlas discussion"
+                      value={subject}
+                      onChange={(e) => setSubject(e.target.value)}
+                      className="form-input"
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="contact-message">Message</label>
+                    <textarea
+                      id="contact-message"
+                      rows={5}
+                      placeholder="Briefly describe your project, timeline, or idea..."
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      className="form-textarea"
+                    ></textarea>
+                  </div>
+
+                  <button type="submit" className="btn btn-primary composer-submit-btn">
+                    <Mail size={16} />
+                    <span>Open in Mail Client</span>
+                  </button>
+                </form>
+
+                <div className="composer-note">
+                  <p>
+                    No simulated submission form. This directly triggers your mail app with Ashish's verified address prefilled.
+                  </p>
+                </div>
+              </SpotlightCard>
+            </Scroll3DReveal>
           </div>
         </div>
       </div>

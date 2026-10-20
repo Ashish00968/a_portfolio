@@ -1,6 +1,7 @@
 import React from 'react';
 import { Compass, Briefcase, MapPin } from 'lucide-react';
 import SpotlightCard from '../components/ui/SpotlightCard';
+import Scroll3DReveal from '../components/ui/Scroll3DReveal';
 import { travelExperience } from '../data/portfolioData';
 import './TravelPage.css';
 
@@ -27,21 +28,24 @@ const TravelPage = () => {
 
         {/* Philosophy Callout */}
         <section className="travel-ethos-section">
-          <SpotlightCard className="travel-ethos-banner" spotlightColor="rgba(212, 138, 82, 0.18)">
-            <div className="travel-ethos-icon">
-              <Compass size={28} />
-            </div>
-            <div className="travel-ethos-content">
-              <h3>Physical Topography Informs Digital Systems</h3>
-              <p>{travelExperience.overview}</p>
-            </div>
-          </SpotlightCard>
+          <Scroll3DReveal pitch={6} depth={-28}>
+            <SpotlightCard className="travel-ethos-banner" spotlightColor="rgba(212, 138, 82, 0.18)">
+              <div className="travel-ethos-icon">
+                <Compass size={28} />
+              </div>
+              <div className="travel-ethos-content">
+                <h3>Physical Topography Informs Digital Systems</h3>
+                <p>{travelExperience.overview}</p>
+              </div>
+            </SpotlightCard>
+          </Scroll3DReveal>
         </section>
 
         {/* Featured Expedition Spotlight Banner */}
         {travelExperience.featuredExpedition && (
           <section className="featured-expedition-section">
-            <SpotlightCard className="expedition-spotlight-card" spotlightColor="rgba(56, 189, 248, 0.22)">
+            <Scroll3DReveal pitch={6.5} depth={-36}>
+              <SpotlightCard className="expedition-spotlight-card" spotlightColor="rgba(56, 189, 248, 0.22)">
               <div className="expedition-grid">
                 <div className="expedition-media-frame">
                   <img
@@ -77,8 +81,9 @@ const TravelPage = () => {
                 </div>
               </div>
             </SpotlightCard>
-          </section>
-        )}
+          </Scroll3DReveal>
+        </section>
+      )}
 
         {/* Real Regions & Visited Trails */}
         <section className="travel-regions-section">
@@ -92,58 +97,65 @@ const TravelPage = () => {
 
           <div className="travel-regions-grid">
             {travelExperience.fieldSummary.map((item, index) => (
-              <SpotlightCard
+              <Scroll3DReveal
                 key={item.region}
-                className="region-card"
-                spotlightColor={index % 2 === 0 ? "rgba(56, 189, 248, 0.16)" : "rgba(212, 138, 82, 0.16)"}
+                pitch={index % 2 === 0 ? 6 : 4.5}
+                depth={index % 2 === 0 ? -30 : -22}
               >
-                {item.image && (
-                  <div className="region-img-frame">
-                    <img
-                      src={item.image}
-                      alt={item.region}
-                      className="region-img"
-                      loading="lazy"
-                    />
-                    <div className="region-img-overlay">
-                      <span className="region-status-badge status-visited">{item.status}</span>
-                      <span className="region-elevation">{item.elevation}</span>
+                <SpotlightCard
+                  className="region-card"
+                  spotlightColor={index % 2 === 0 ? "rgba(56, 189, 248, 0.16)" : "rgba(212, 138, 82, 0.16)"}
+                >
+                  {item.image && (
+                    <div className="region-img-frame">
+                      <img
+                        src={item.image}
+                        alt={item.region}
+                        className="region-img"
+                        loading="lazy"
+                      />
+                      <div className="region-img-overlay">
+                        <span className="region-status-badge status-visited">{item.status}</span>
+                        <span className="region-elevation">{item.elevation}</span>
+                      </div>
+                    </div>
+                  )}
+                  <div className="region-card-body">
+                    <div className="region-card-header">
+                      <h3>{item.region}</h3>
+                    </div>
+                    <span className="region-location">{item.location}</span>
+                    <p>{item.details}</p>
+                    <div className="region-tags">
+                      {item.tags?.map((tag) => (
+                        <span key={tag} className="editorial-tag">{tag}</span>
+                      ))}
                     </div>
                   </div>
-                )}
-                <div className="region-card-body">
-                  <div className="region-card-header">
-                    <h3>{item.region}</h3>
-                  </div>
-                  <span className="region-location">{item.location}</span>
-                  <p>{item.details}</p>
-                  <div className="region-tags">
-                    {item.tags?.map((tag) => (
-                      <span key={tag} className="editorial-tag">{tag}</span>
-                    ))}
-                  </div>
-                </div>
-              </SpotlightCard>
+                </SpotlightCard>
+              </Scroll3DReveal>
             ))}
           </div>
         </section>
 
         {/* Industry Collaboration */}
         <section className="industry-collab-section">
-          <SpotlightCard className="industry-card">
-            <div className="industry-header">
-              <div className="industry-icon">
-                <Briefcase size={22} />
+          <Scroll3DReveal pitch={5.5} depth={-24}>
+            <SpotlightCard className="industry-card">
+              <div className="industry-header">
+                <div className="industry-icon">
+                  <Briefcase size={22} />
+                </div>
+                <div>
+                  <h3>{travelExperience.industryExperience.company}</h3>
+                  <span className="industry-sub">Industry Engagement & Field Collaboration</span>
+                </div>
               </div>
-              <div>
-                <h3>{travelExperience.industryExperience.company}</h3>
-                <span className="industry-sub">Industry Engagement & Field Collaboration</span>
-              </div>
-            </div>
-            <p className="industry-text">
-              {travelExperience.industryExperience.statusNote}
-            </p>
-          </SpotlightCard>
+              <p className="industry-text">
+                {travelExperience.industryExperience.statusNote}
+              </p>
+            </SpotlightCard>
+          </Scroll3DReveal>
         </section>
 
         {/* Truthfulness note */}

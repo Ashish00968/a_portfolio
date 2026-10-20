@@ -11,17 +11,27 @@ Cinematic, spaceship-inspired personal portfolio for **Ashish Nirankari** — Co
 
 ---
 
-## 🏔️ Architecture & Dedicated Routes (v3.2)
+## 🏔️ Architecture & Dedicated Routes (v3.3)
 
 The site is built with **React 19**, **Vite 8**, **React Router 7**, and **Framer Motion**, utilizing route code-splitting (`React.lazy()` + `<Suspense>`) for instant initial paint and zero layout shifts:
 
-- `/` — Cinematic Spaceship editorial homepage with live telemetry and hero portrait
+- `/` — Cinematic Spaceship editorial homepage with live telemetry, 3D spatial hero portrait, and interactive DEM ridge
 - `/tech-stack` — Technical capabilities, systems architecture principles, and web projects
 - `/tech-stack/discover-himalayan-trails` — Flagship case study for Discover Himalayan Trails (Mapbox GL JS 3D DEM, GPS tracks, 4-stage system & telemetry pipeline)
 - `/travel` — Regional mountain field notes and verified industry context (Himachal Pradesh, Trekking Hills Travels)
 - `/photography-video` — Himalayan landscape photography, interactive RAW vs. Graded color slider, full-screen cycling Lightbox, and cinematic video edits
 - `/about` — Background, IIITDM Jabalpur CS foundation, and technical ethos
 - `/contact` — Verified communication channels, mail client composer, and instant clipboard copy
+
+---
+
+## 🚀 3D Scroll Physics & Himalayan Orbital Altimeter HUD
+
+- **Relativistic Starfield Warp & Topographic DEM Horizon (`SpaceshipBackground.jsx`)**: Canvas starfield with velocity-damped scroll tracking (`scrollY` exponential decay `0.07`). Stars stretch along the vertical vector into high-speed warp streaks proportional to scroll speed, while 4-layer DEM contours dynamically undulate.
+- **3D Perspective Scroll Container (`Scroll3DReveal.jsx`)**: Hardware-accelerated 3D scroll reveal (`perspective: 1200px`, `transform-style: preserve-3d`) driven by Framer Motion spring physics (`stiffness: 180, damping: 24`). Features entry pitch (`rotateX: 6.5° → 0°`), scale smoothing, and exit displacement (`translateZ`).
+- **Floating 3D Himalayan Orbital Altimeter HUD (`ScrollTelemetryHUD.jsx`)**: Fixed viewport altimeter mapping page scroll directly to field altitude from Solang Base (`2,480m`) to Patalsu Summit (`4,261m`), tracking waypoints (`WP-01` to `WP-36`) with a 3D attitude gimbal ring and smooth scroll-to-top action.
+- **Hero 3D Spatial Tilt & Depth Separation (`HeroPortrait.jsx`)**: Dual-tier transform separating mouse-driven spring tilt from scroll-driven pitch (`rotateX: 0° → 10.5°`, `translateZ: 0px → -42px`), creating 3D depth separation between the portrait frame and the forward-projected HUD pill (`DEM LOCK // 4,261M`).
+- **Emil Kowalski Animation Discipline**: All motion is GPU-composited (`transform`, `opacity`), zero `transition: all`, physical `:active` scaling (`scale(0.95)`), and 100% `prefers-reduced-motion` compliance.
 
 ---
 

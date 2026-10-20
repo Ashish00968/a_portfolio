@@ -14,6 +14,7 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import SpotlightCard from '../components/ui/SpotlightCard';
+import Scroll3DReveal from '../components/ui/Scroll3DReveal';
 import {
   photographyGallery,
   photoEditComparison,
@@ -193,41 +194,46 @@ const PhotoVideoPage = () => {
 
             <div className="photo-editorial-grid">
               {photographyGallery.map((photo, index) => (
-                <SpotlightCard
+                <Scroll3DReveal
                   key={photo.id}
-                  className={`photo-item ${index === 0 || index === 3 ? 'photo-item-lead' : ''}`}
-                  onClick={() => setSelectedPhotoIndex(index)}
+                  pitch={index % 2 === 0 ? 6.5 : 4.5}
+                  depth={index % 2 === 0 ? -32 : -22}
                 >
-                  <div className="photo-frame">
-                    <img
-                      src={photo.src}
-                      alt={photo.title}
-                      className="photo-img"
-                      loading="lazy"
-                    />
-                    <div className="photo-item-overlay">
-                      <div className="photo-item-meta">
-                        <div className="photo-item-header-meta">
-                          <span className="photo-item-loc">
-                            <MapPin size={12} /> {photo.location}
-                          </span>
-                          {photo.telemetry && (
-                            <span className="photo-item-telemetry">
-                              {photo.telemetry}
+                  <SpotlightCard
+                    className={`photo-item ${index === 0 || index === 3 ? 'photo-item-lead' : ''}`}
+                    onClick={() => setSelectedPhotoIndex(index)}
+                  >
+                    <div className="photo-frame">
+                      <img
+                        src={photo.src}
+                        alt={photo.title}
+                        className="photo-img"
+                        loading="lazy"
+                      />
+                      <div className="photo-item-overlay">
+                        <div className="photo-item-meta">
+                          <div className="photo-item-header-meta">
+                            <span className="photo-item-loc">
+                              <MapPin size={12} /> {photo.location}
                             </span>
-                          )}
+                            {photo.telemetry && (
+                              <span className="photo-item-telemetry">
+                                {photo.telemetry}
+                              </span>
+                            )}
+                          </div>
+                          <h3 className="photo-item-title">{photo.title}</h3>
                         </div>
-                        <h3 className="photo-item-title">{photo.title}</h3>
+                        <span className="photo-view-cue">
+                          <Maximize2 size={16} />
+                        </span>
                       </div>
-                      <span className="photo-view-cue">
-                        <Maximize2 size={16} />
-                      </span>
                     </div>
-                  </div>
-                  <div className="photo-item-caption">
-                    <span className="caption-text">{photo.caption}</span>
-                  </div>
-                </SpotlightCard>
+                    <div className="photo-item-caption">
+                      <span className="caption-text">{photo.caption}</span>
+                    </div>
+                  </SpotlightCard>
+                </Scroll3DReveal>
               ))}
             </div>
           </section>
@@ -244,61 +250,63 @@ const PhotoVideoPage = () => {
               <p>{photoEditComparison.description}</p>
             </div>
 
-            <div className="comparison-card">
-              <div
-                className="comparison-slider-wrapper"
-                ref={sliderContainerRef}
-                role="slider"
-                tabIndex={0}
-                aria-label="Before and after color grading comparison slider"
-                aria-valuenow={Math.round(sliderPos)}
-                aria-valuemin={0}
-                aria-valuemax={100}
-                onKeyDown={handleSliderKeyDown}
-                onPointerDown={handlePointerDown}
-                onPointerMove={handlePointerMove}
-                onPointerUp={handlePointerUp}
-                onPointerCancel={handlePointerUp}
-              >
-                {/* Graded Image (Underneath) */}
-                <img
-                  src={photoEditComparison.gradedImg}
-                  alt={photoEditComparison.gradedLabel}
-                  className="comparison-img comparison-graded"
-                  draggable={false}
-                />
-                <span className="slider-label label-graded">{photoEditComparison.gradedLabel}</span>
-
-                {/* RAW Image (Clipped on top) */}
+            <Scroll3DReveal pitch={6} depth={-34}>
+              <div className="comparison-card">
                 <div
-                  className="comparison-raw-overlay"
-                  style={{ width: `${sliderPos}%` }}
+                  className="comparison-slider-wrapper"
+                  ref={sliderContainerRef}
+                  role="slider"
+                  tabIndex={0}
+                  aria-label="Before and after color grading comparison slider"
+                  aria-valuenow={Math.round(sliderPos)}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  onKeyDown={handleSliderKeyDown}
+                  onPointerDown={handlePointerDown}
+                  onPointerMove={handlePointerMove}
+                  onPointerUp={handlePointerUp}
+                  onPointerCancel={handlePointerUp}
                 >
+                  {/* Graded Image (Underneath) */}
                   <img
-                    src={photoEditComparison.rawImg}
-                    alt={photoEditComparison.rawLabel}
-                    className="comparison-img comparison-raw"
+                    src={photoEditComparison.gradedImg}
+                    alt={photoEditComparison.gradedLabel}
+                    className="comparison-img comparison-graded"
                     draggable={false}
                   />
-                  <span className="slider-label label-raw">{photoEditComparison.rawLabel}</span>
-                </div>
+                  <span className="slider-label label-graded">{photoEditComparison.gradedLabel}</span>
 
-                {/* Divider Handle */}
-                <div
-                  className="comparison-handle"
-                  style={{ left: `${sliderPos}%` }}
-                >
-                  <div className="handle-line"></div>
-                  <div className="handle-knob">
-                    <Sliders size={14} />
+                  {/* RAW Image (Clipped on top) */}
+                  <div
+                    className="comparison-raw-overlay"
+                    style={{ width: `${sliderPos}%` }}
+                  >
+                    <img
+                      src={photoEditComparison.rawImg}
+                      alt={photoEditComparison.rawLabel}
+                      className="comparison-img comparison-raw"
+                      draggable={false}
+                    />
+                    <span className="slider-label label-raw">{photoEditComparison.rawLabel}</span>
+                  </div>
+
+                  {/* Divider Handle */}
+                  <div
+                    className="comparison-handle"
+                    style={{ left: `${sliderPos}%` }}
+                  >
+                    <div className="handle-line"></div>
+                    <div className="handle-knob">
+                      <Sliders size={14} />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="comparison-footer-hint">
-                <span>Drag the handle horizontally or use ← / → arrow keys to inspect color grade</span>
+                <div className="comparison-footer-hint">
+                  <span>Drag the handle horizontally or use ← / → arrow keys to inspect color grade</span>
+                </div>
               </div>
-            </div>
+            </Scroll3DReveal>
           </section>
         )}
 
@@ -315,60 +323,65 @@ const PhotoVideoPage = () => {
               </p>
             </div>
 
-            <div className="video-portfolio-callout">
-              <div className="vp-callout-text">
-                <span className="telemetry-tag">STANDALONE PRODUCTION SHOWCASE</span>
-                <h3>Dedicated Video Portfolio</h3>
-                <p>
-                  Explore complete high-frame-rate mountain reels, transitions, and edits on my dedicated video platform.
-                </p>
+            <Scroll3DReveal pitch={5.5} depth={-26}>
+              <div className="video-portfolio-callout">
+                <div className="vp-callout-text">
+                  <span className="telemetry-tag">STANDALONE PRODUCTION SHOWCASE</span>
+                  <h3>Dedicated Video Portfolio</h3>
+                  <p>
+                    Explore complete high-frame-rate mountain reels, transitions, and edits on my dedicated video platform.
+                  </p>
+                </div>
+                <a
+                  href={profile.social.videoPortfolioUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary"
+                >
+                  <span>Launch editzportfolio.netlify.app</span>
+                  <ArrowUpRight size={16} />
+                </a>
               </div>
-              <a
-                href={profile.social.videoPortfolioUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary"
-              >
-                <span>Launch editzportfolio.netlify.app</span>
-                <ArrowUpRight size={16} />
-              </a>
-            </div>
+            </Scroll3DReveal>
 
             <div className="video-editorial-grid">
               {videoShowcase.map((item) => (
-                <SpotlightCard
-                  key={item.id}
-                  className="video-spotlight-card"
-                  onClick={() => setActiveVideo(item)}
-                >
-                  <div className="video-thumb-frame">
-                    <img
-                      src={item.imgSrc}
-                      alt={item.title}
-                      className="video-thumb-img"
-                      loading="lazy"
-                    />
-                    <div className="video-play-badge">
-                      <Play size={22} className="play-icon" />
+                <Scroll3DReveal key={item.id} pitch={5.5} depth={-26}>
+                  <SpotlightCard
+                    className="video-spotlight-card"
+                    onClick={() => setActiveVideo(item)}
+                  >
+                    <div className="video-thumb-frame">
+                      <img
+                        src={item.imgSrc}
+                        alt={item.title}
+                        className="video-thumb-img"
+                        loading="lazy"
+                      />
+                      <div className="video-play-badge">
+                        <Play size={22} className="play-icon" />
+                      </div>
+                      <span className="telemetry-tag video-tag">{item.category}</span>
                     </div>
-                    <span className="telemetry-tag video-tag">{item.category}</span>
-                  </div>
 
-                  <div className="video-card-body">
-                    <h3 className="video-title">{item.title}</h3>
-                    <p className="video-desc">{item.desc}</p>
-                  </div>
-                </SpotlightCard>
+                    <div className="video-card-body">
+                      <h3 className="video-title">{item.title}</h3>
+                      <p className="video-desc">{item.desc}</p>
+                    </div>
+                  </SpotlightCard>
+                </Scroll3DReveal>
               ))}
             </div>
 
-            <div className="video-ethos-card">
-              <span className="eyebrow">Scope & Transparency</span>
-              <h3>Post-Production Craft vs. Presentation</h3>
-              <p className="ethos-body">
-                My primary video expertise centers on <strong>editing, color timing, rhythmic pacing, and ambient sound Foley</strong>. These technical skills directly elevate rich multimedia storytelling on platforms like Discover Himalayan Trails.
-              </p>
-            </div>
+            <Scroll3DReveal pitch={5.5} depth={-24}>
+              <div className="video-ethos-card">
+                <span className="eyebrow">Scope & Transparency</span>
+                <h3>Post-Production Craft vs. Presentation</h3>
+                <p className="ethos-body">
+                  My primary video expertise centers on <strong>editing, color timing, rhythmic pacing, and ambient sound Foley</strong>. These technical skills directly elevate rich multimedia storytelling on platforms like Discover Himalayan Trails.
+                </p>
+              </div>
+            </Scroll3DReveal>
           </section>
         )}
       </div>

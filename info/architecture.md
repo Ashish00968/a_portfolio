@@ -128,31 +128,55 @@ Documented in `portfolioData.js` and rendered via `SpotlightCard` components on 
 
 ## 4. Spaceship Theme & Interactive Motion Engine
 
-### 1. `SpaceshipBackground.jsx`
+### 1. `SpaceshipBackground.jsx` (Relativistic Star Warp & Dynamic DEM Horizon Canvas)
 - Fixed viewport canvas behind all UI (`z-index: 0`, `pointer-events: none`).
-- Generates modest, performant cosmic star particles with gentle vertical drifting and sinusoidal twinkling.
+- Generates modest, performant cosmic star particles with 3D Z-depth parallax and sinusoidal twinkling.
+- **Relativistic Scroll Warp**: Velocity-damped scroll tracking (`scrollY` with exponential lerp decay `0.07`). Stars stretch along the vertical vector into high-speed warp streaks proportional to scroll velocity and Z-depth.
+- **Dynamic DEM Topographic Horizon**: 4-layer sine/cosine topographic contour waves undulating and shifting elevation smoothly with cumulative scroll delta.
 - Includes a subtle orbital radial gradient nebula wash (`rgba(56, 189, 248, 0.03)` to `rgba(99, 102, 241, 0.02)`).
-- Respects `prefers-reduced-motion` (locks star drift).
+- Respects `prefers-reduced-motion` (locks star drift and warp streaks).
 
-### 2. `SpotlightCard.jsx`
+### 2. `Scroll3DReveal.jsx` (Hardware-Accelerated 3D Perspective Scroll Container)
+- Reusable scroll reveal container configured with `perspective: 1200px` and `transform-style: preserve-3d`.
+- Driven by Framer Motion `useScroll`, `useTransform`, and physics springs (`stiffness: 180, damping: 24`).
+- Physics transforms:
+  - Entry pitch: `rotateX: 6.5° → 0°` (starts at scale `0.965 → 1.0`, `translateZ: -32px → 0px`).
+  - Exit pitch: `rotateX: 0° → -4.5°`, `translateZ: 0px → -24px`.
+  - Optional asymmetric roll: `rotateY: -2.5°` to `+2.5°` based on `rotateDirection`.
+- Fallbacks automatically to simple clean opacity transitions when `prefers-reduced-motion` is active.
+
+### 3. `ScrollTelemetryHUD.jsx` (Floating 3D Himalayan Orbital Altimeter HUD)
+- Fixed viewport HUD anchored in the bottom-right corner (`z-index: 90`).
+- Monitors normalized global document scroll position and maps it dynamically to field altitude:
+  - Solang Base Camp (`2,480m`) at top of page $\to$ Patalsu Peak Summit (`4,261m`) at bottom of page.
+  - Waypoint tracking across 5 route milestones (`WP-01 BASE`, `WP-08 DHUNDI`, `WP-18 RIDGE`, `WP-27 MORAINE`, `WP-36 PATALSU SUMMIT`).
+- 3D attitude gimbal ring with continuous roll momentum and velocity pitch tilt (`rotateX`, `rotateZ`).
+- Emil Kowalski tactile interactions: `:hover` glow, `:active { transform: scale(0.95); }`, and smooth scroll-to-top on click.
+
+### 4. `HeroPortrait.jsx` (3D Spatial Tilt & Depth Separation)
+- Dual-tier transform architecture:
+  - Inner `.portrait-frame`: Mouse-driven spring tilt (`rotateX`, `rotateY`, `scale`) with optical corner reticles and specular glare.
+  - Outer `.portrait-scroll-tilt-wrapper`: Scroll-driven pitch (`rotateX: 0° → 10.5°`, `translateZ: 0px → -42px`), pushing the portrait frame back while leaving the floating HUD telemetry pill (`DEM LOCK // 4,261M` at `translateZ(28px)`) projected into forward 3D space.
+
+### 5. `SpotlightCard.jsx`
 - Wraps interactive cards throughout the application.
 - Tracks mouse coordinates relative to the card bounding rect on `mousemove`.
 - Updates CSS custom properties `--mouse-x` and `--mouse-y`.
 - Renders an illuminated radial gradient (`radial-gradient(480px circle at var(--mouse-x) var(--mouse-y), ...)`) with a subtle border highlight on hover.
 - Spring-based `:hover` lift (`translateY(-2px)`) and `:active` press (`scale(0.99)`).
 
-### 3. `CommandPalette.jsx` (`⌘K` / `Ctrl+K`)
+### 6. `CommandPalette.jsx` (`⌘K` / `Ctrl+K`)
 - Mounted via `createPortal(..., document.body)` to guarantee an isolated top-level stacking context over the entire viewport.
 - Keyboard triggers (`⌘K`, `Ctrl+K`, `Escape`, `ArrowUp`, `ArrowDown`, `Enter`).
 - Instant fuzzy query filtering matching item labels, category badges, and telemetry hints.
 - Quick action for one-click email copying (`ashishnirankari0968@gmail.com`) with instant inline visual confirmation.
 - Frosted glass backdrop blur (`backdrop-filter: blur(20px)`), Cosmic Obsidian borders, and Emil Kowalski scale-in transitions.
 
-### 4. Fullscreen Cycling Lightbox & Comparison Slider (`PhotoVideoPage.jsx`)
+### 7. Fullscreen Cycling Lightbox & Comparison Slider (`PhotoVideoPage.jsx`)
 - **Fullscreen Lightbox**: Portal-rendered visual stage displaying high-res mountain stills, location telemetry, index badges (`01 / 08`), cycling chevrons, keyboard navigation (`ArrowLeft`/`ArrowRight`), body scroll lock, and `Escape` dismiss.
 - **RAW vs Graded Comparison Slider**: Accessible dual-image slider with pointer capture (`setPointerCapture`) for touch resilience, `role="slider"`, `aria-valuenow`, and keyboard arrows (`ArrowLeft`/`ArrowRight` 5% deltas).
 
-### 5. Telemetry HUD Indicators
+### 8. Telemetry HUD Indicators
 - Monospace tags styled with `.telemetry-tag` and `.telemetry-dot`.
 - Displays real coordinates (`32.2396° N, 77.1887° E`), summits (`4,261 M (SOLANG / PATALSU)`), and status badges (`ONLINE / ACTIVE`).
 

@@ -39,6 +39,18 @@ const SpaceshipBackground = () => {
     };
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
 
+    // Scroll tracking with velocity damping for 3D warp depth
+    const scrollState = {
+      targetY: window.scrollY || 0,
+      currentY: window.scrollY || 0,
+      velocity: 0,
+    };
+    const handleScroll = () => {
+      if (prefersReducedMotion) return;
+      scrollState.targetY = window.scrollY || 0;
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
     // 3D depth-layered starfield (z: 0.25 far -> 1.0 near)
     const starCount = Math.min(Math.floor((width * height) / 15000), 85);
     const stars = Array.from({ length: starCount }, () => {
@@ -60,9 +72,13 @@ const SpaceshipBackground = () => {
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Smoothly interpolate camera parallax
+      // Smoothly interpolate camera parallax and scroll velocity
       pointer.currentX += (pointer.targetX - pointer.currentX) * 0.05;
       pointer.currentY += (pointer.targetY - pointer.currentY) * 0.05;
+
+      const scrollDiff = scrollState.targetY - scrollState.currentY;
+      scrollState.currentY += scrollDiff * 0.07;
+      scrollState.velocity = scrollDiff * 0.07;
 
       // 1. Ambient 3D orbital nebula washes
       const nebulaX = width * 0.72 + pointer.currentX * -24;
@@ -96,18 +112,22 @@ const SpaceshipBackground = () => {
       ctx.fillStyle = gradWarm;
       ctx.fillRect(0, 0, width, height);
 
-      // 2. Subtle 3D Topographic DEM Contour Horizon Lines
+      // 2. Subtle 3D Topographic DEM Contour Horizon Lines with Dynamic Scroll Drift
       const contourCount = 4;
+      const scrollContourShift = scrollState.currentY * 0.0016;
+
       for (let c = 0; c < contourCount; c++) {
         const layerDepth = (c + 1) / contourCount;
-        const baseY = height * (0.76 + c * 0.055) + pointer.currentY * (layerDepth * 14);
+        // Shift base horizon smoothly with scroll depth to simulate ascending/descending
+        const scrollBaseLift = Math.sin(scrollState.currentY * 0.0008 + c * 0.4) * (layerDepth * 18);
+        const baseY = height * (0.76 + c * 0.055) + pointer.currentY * (layerDepth * 14) + scrollBaseLift;
         ctx.beginPath();
-        const step = 36;
+        const step = 34;
         for (let x = 0; x <= width + step; x += step) {
-          const nx = x * 0.0022 + pointer.currentX * 0.15 * layerDepth;
+          const nx = x * 0.0022 + pointer.currentX * 0.15 * layerDepth + scrollContourShift * layerDepth;
           const elevation =
             Math.sin(nx + time * 0.35 + c * 0.9) * 18 * layerDepth +
-            Math.cos(nx * 2.1 - time * 0.2 + c) * 9 * layerDepth;
+            Math.cos(nx * 2.1 - time * 0.2 + c + scrollContourShift * 0.5) * 9 * layerDepth;
           const py = baseY + elevation;
           if (x === 0) {
             ctx.moveTo(x, py);
@@ -123,17 +143,21 @@ const SpaceshipBackground = () => {
         ctx.stroke();
       }
 
-      // 3. 3D Depth-Layered Cosmic Particles
+      // 3. 3D Depth-Layered Cosmic Particles with Relativistic Scroll Warp
       if (!prefersReducedMotion) {
         time += 0.016;
       }
 
+      const warpVelocity = prefersReducedMotion ? 0 : Math.max(-28, Math.min(28, scrollState.velocity));
+      const isWarping = Math.abs(warpVelocity) > 1.2;
+
       for (let i = 0; i < stars.length; i++) {
         const star = stars[i];
         if (!prefersReducedMotion) {
-          star.y -= star.velocity;
-          if (star.y < -10) star.y = height + 10;
-          if (star.y > height + 10) star.y = -10;
+          // Base natural velocity + scroll-induced Z-warp displacement
+          star.y -= star.velocity + (warpVelocity * star.z * 0.45);
+          if (star.y < -20) star.y = height + 20;
+          if (star.y > height + 20) star.y = -20;
         }
 
         const parallaxX = pointer.currentX * star.z * 22;
@@ -147,9 +171,23 @@ const SpaceshipBackground = () => {
         );
 
         ctx.fillStyle = `rgba(${star.tint}, ${dynamicAlpha})`;
-        ctx.beginPath();
-        ctx.arc(drawX, drawY, star.size, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.strokeStyle = `rgba(${star.tint}, ${dynamicAlpha * 0.85})`;
+
+        if (isWarping && star.z > 0.5) {
+          // Draw subtle relativistic warp streak in high-velocity scroll
+          const streakLength = Math.max(2, Math.min(24, Math.abs(warpVelocity) * star.z * 1.2));
+          const streakDirection = warpVelocity > 0 ? -1 : 1;
+          ctx.beginPath();
+          ctx.lineWidth = star.size * 0.9;
+          ctx.moveTo(drawX, drawY);
+          ctx.lineTo(drawX, drawY + streakLength * streakDirection);
+          ctx.stroke();
+        } else {
+          // Standard circular celestial body
+          ctx.beginPath();
+          ctx.arc(drawX, drawY, star.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
       }
 
       animationFrameId = requestAnimationFrame(render);
@@ -160,6 +198,7 @@ const SpaceshipBackground = () => {
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('scroll', handleScroll);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);

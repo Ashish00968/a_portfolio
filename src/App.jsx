@@ -4,6 +4,7 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ScrollToTop from './components/layout/ScrollToTop';
 import SpaceshipBackground from './components/ui/SpaceshipBackground';
+import ScrollTelemetryHUD from './components/ui/ScrollTelemetryHUD';
 
 import HomePage from './pages/HomePage';
 
@@ -79,6 +80,7 @@ function App() {
             </Routes>
           </Suspense>
         </main>
+        <ScrollTelemetryHUD />
         <Footer />
       </div>
     </BrowserRouter>

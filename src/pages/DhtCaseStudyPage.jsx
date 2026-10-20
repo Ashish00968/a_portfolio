@@ -3,6 +3,7 @@ import { ArrowUpRight, ArrowLeft, CheckCircle2, ExternalLink } from 'lucide-reac
 import { Link } from 'react-router-dom';
 import SpotlightCard from '../components/ui/SpotlightCard';
 import ElevationProfile3D from '../components/ui/ElevationProfile3D';
+import Scroll3DReveal from '../components/ui/Scroll3DReveal';
 import { dhtCaseStudy, getAssetPath } from '../data/portfolioData';
 import './DhtCaseStudyPage.css';
 
@@ -125,28 +126,30 @@ const DhtCaseStudyPage = () => {
             </div>
 
             {/* Topographic Ground Truth Visual Reference */}
-            <div className="cs-terrain-visual-card">
-              <div className="cs-terrain-img-frame">
-                <img
-                  src={getAssetPath('/pir-panjal-glacier-face.jpg')}
-                  alt="Pir Panjal Hanging Glacier and Topographic Rock Formations"
-                  className="cs-terrain-img"
-                  loading="lazy"
-                />
-                <div className="cs-terrain-overlay">
-                  <span className="telemetry-tag">
-                    <span className="telemetry-dot" aria-hidden="true"></span>
-                    TOPOGRAPHIC GROUND TRUTH // 4,020M ROCK AMPHITHEATER
-                  </span>
-                  <span className="telemetry-tag">1.5× DEM ELEVATION CALIBRATION</span>
+            <Scroll3DReveal pitch={6} depth={-32}>
+              <div className="cs-terrain-visual-card">
+                <div className="cs-terrain-img-frame">
+                  <img
+                    src={getAssetPath('/pir-panjal-glacier-face.jpg')}
+                    alt="Pir Panjal Hanging Glacier and Topographic Rock Formations"
+                    className="cs-terrain-img"
+                    loading="lazy"
+                  />
+                  <div className="cs-terrain-overlay">
+                    <span className="telemetry-tag">
+                      <span className="telemetry-dot" aria-hidden="true"></span>
+                      TOPOGRAPHIC GROUND TRUTH // 4,020M ROCK AMPHITHEATER
+                    </span>
+                    <span className="telemetry-tag">1.5× DEM ELEVATION CALIBRATION</span>
+                  </div>
+                </div>
+                <div className="cs-terrain-caption">
+                  <p>
+                    High-resolution field reconnaissance of glacial chutes and metamorphic contours in the Pir Panjal range — physical reference data used to calibrate 3D DEM terrain shaders and elevation contour profiles in Discover Himalayan Trails.
+                  </p>
                 </div>
               </div>
-              <div className="cs-terrain-caption">
-                <p>
-                  High-resolution field reconnaissance of glacial chutes and metamorphic contours in the Pir Panjal range — physical reference data used to calibrate 3D DEM terrain shaders and elevation contour profiles in Discover Himalayan Trails.
-                </p>
-              </div>
-            </div>
+            </Scroll3DReveal>
           </section>
 
           {/* Section: System & Telemetry Pipeline */}
@@ -168,24 +171,27 @@ const DhtCaseStudyPage = () => {
 
             <div className="cs-pipeline-grid">
               {dhtCaseStudy.architecturePipeline.map((item) => (
-                <SpotlightCard
-                  key={item.step}
-                  className="cs-pipeline-card"
-                  spotlightColor="rgba(56, 189, 248, 0.12)"
-                  borderColor="rgba(56, 189, 248, 0.35)"
-                >
-                  <div className="cs-pipeline-header">
-                    <span className="cs-pipeline-step-badge">{item.step}</span>
-                    <span className="telemetry-tag cs-pipeline-telemetry">{item.telemetry}</span>
-                  </div>
-                  <h3 className="cs-pipeline-title">{item.phase}</h3>
-                  <p className="cs-pipeline-desc">{item.description}</p>
-                </SpotlightCard>
+                <Scroll3DReveal key={item.step} pitch={5.5} depth={-26}>
+                  <SpotlightCard
+                    className="cs-pipeline-card"
+                    spotlightColor="rgba(56, 189, 248, 0.12)"
+                    borderColor="rgba(56, 189, 248, 0.35)"
+                  >
+                    <div className="cs-pipeline-header">
+                      <span className="cs-pipeline-step-badge">{item.step}</span>
+                      <span className="telemetry-tag cs-pipeline-telemetry">{item.telemetry}</span>
+                    </div>
+                    <h3 className="cs-pipeline-title">{item.phase}</h3>
+                    <p className="cs-pipeline-desc">{item.description}</p>
+                  </SpotlightCard>
+                </Scroll3DReveal>
               ))}
             </div>
 
             {/* Interactive 3D DEM Elevation & GPX Waypoint Inspector */}
-            <ElevationProfile3D />
+            <Scroll3DReveal pitch={6.5} depth={-36}>
+              <ElevationProfile3D />
+            </Scroll3DReveal>
           </section>
 
           {/* Section: Live Destination Pages */}
@@ -200,56 +206,58 @@ const DhtCaseStudyPage = () => {
 
             <div className="cs-destinations-grid">
               {dhtCaseStudy.destinationPages.map((dest) => (
-                <div key={dest.name} className="cs-dest-card">
-                  {dest.image && (
-                    <div className="cs-dest-img-frame">
-                      <img
-                        src={dest.image}
-                        alt={dest.name}
-                        className="cs-dest-img"
-                        loading="lazy"
-                      />
-                      <div className="cs-dest-img-overlay">
-                        <span className="cs-dest-altitude">{dest.altitude}</span>
-                        <span className="cs-dest-region">{dest.region}</span>
-                      </div>
-                    </div>
-                  )}
-                  <div className="cs-dest-body">
-                    {!dest.image && (
-                      <div className="cs-dest-header">
-                        <span className="cs-dest-altitude">{dest.altitude}</span>
-                        <span className="cs-dest-region">{dest.region}</span>
+                <Scroll3DReveal key={dest.name} pitch={5.5} depth={-26}>
+                  <div className="cs-dest-card">
+                    {dest.image && (
+                      <div className="cs-dest-img-frame">
+                        <img
+                          src={dest.image}
+                          alt={dest.name}
+                          className="cs-dest-img"
+                          loading="lazy"
+                        />
+                        <div className="cs-dest-img-overlay">
+                          <span className="cs-dest-altitude">{dest.altitude}</span>
+                          <span className="cs-dest-region">{dest.region}</span>
+                        </div>
                       </div>
                     )}
-                    <h3>{dest.name}</h3>
-                    <p className="cs-dest-desc">{dest.desc}</p>
-                    <span className="cs-dest-stats">{dest.stats}</span>
+                    <div className="cs-dest-body">
+                      {!dest.image && (
+                        <div className="cs-dest-header">
+                          <span className="cs-dest-altitude">{dest.altitude}</span>
+                          <span className="cs-dest-region">{dest.region}</span>
+                        </div>
+                      )}
+                      <h3>{dest.name}</h3>
+                      <p className="cs-dest-desc">{dest.desc}</p>
+                      <span className="cs-dest-stats">{dest.stats}</span>
 
-                    <div className="cs-dest-links">
-                      <a
-                        href={dest.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn btn-secondary btn-sm"
-                      >
-                        <span>Open on DHT Live</span>
-                        <ArrowUpRight size={14} />
-                      </a>
-                      {dest.githubPagesUrl && (
+                      <div className="cs-dest-links">
                         <a
-                          href={dest.githubPagesUrl}
+                          href={dest.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="btn btn-ghost btn-sm"
+                          className="btn btn-secondary btn-sm"
                         >
-                          <span>GitHub Pages Mirror</span>
-                          <ExternalLink size={12} />
+                          <span>Open on DHT Live</span>
+                          <ArrowUpRight size={14} />
                         </a>
-                      )}
+                        {dest.githubPagesUrl && (
+                          <a
+                            href={dest.githubPagesUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn btn-ghost btn-sm"
+                          >
+                            <span>GitHub Pages Mirror</span>
+                            <ExternalLink size={12} />
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Scroll3DReveal>
               ))}
             </div>
           </section>
@@ -260,25 +268,27 @@ const DhtCaseStudyPage = () => {
               <span className="eyebrow">05 / Development Status</span>
               <h2>Current State & Next Steps</h2>
             </div>
-            <div className="cs-status-card">
-              <p className="cs-paragraph">
-                Discover Himalayan Trails is an ongoing, independent initiative founded by Ashish Nirankari. It is built as a portfolio flagship to demonstrate real-world web engineering, geospatial visualization, and domain-informed software design.
-              </p>
-              <div className="cs-status-list">
-                <div className="status-item">
-                  <CheckCircle2 size={18} className="status-icon" />
-                  <span>3D Digital Elevation Model (DEM) map canvas with Mapbox GL JS</span>
-                </div>
-                <div className="status-item">
-                  <CheckCircle2 size={18} className="status-icon" />
-                  <span>Verified trail GPS routes for Patalsu Peak and Rohtang Pass</span>
-                </div>
-                <div className="status-item">
-                  <CheckCircle2 size={18} className="status-icon" />
-                  <span>Low-bandwidth optimized Cloudinary image pipeline</span>
+            <Scroll3DReveal pitch={5.5} depth={-24}>
+              <div className="cs-status-card">
+                <p className="cs-paragraph">
+                  Discover Himalayan Trails is an ongoing, independent initiative founded by Ashish Nirankari. It is built as a portfolio flagship to demonstrate real-world web engineering, geospatial visualization, and domain-informed software design.
+                </p>
+                <div className="cs-status-list">
+                  <div className="status-item">
+                    <CheckCircle2 size={18} className="status-icon" />
+                    <span>3D Digital Elevation Model (DEM) map canvas with Mapbox GL JS</span>
+                  </div>
+                  <div className="status-item">
+                    <CheckCircle2 size={18} className="status-icon" />
+                    <span>Verified trail GPS routes for Patalsu Peak and Rohtang Pass</span>
+                  </div>
+                  <div className="status-item">
+                    <CheckCircle2 size={18} className="status-icon" />
+                    <span>Low-bandwidth optimized Cloudinary image pipeline</span>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Scroll3DReveal>
           </section>
         </main>
       </div>

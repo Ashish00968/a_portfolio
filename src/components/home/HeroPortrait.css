@@ -11,6 +11,13 @@
   perspective: 1100px;
 }
 
+.portrait-scroll-tilt-wrapper {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
 .portrait-ambient-halo {
   position: absolute;
   inset: -14px;

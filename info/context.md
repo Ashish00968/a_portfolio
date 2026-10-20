@@ -95,6 +95,26 @@ Per Ashish's explicit design request:
   - Configured with Node.js 22, `VITE_BASE: '/a_portfolio/'`, and `GITHUB_PAGES: 'true'`, outputting artifact directly to GitHub Pages environment.
   - Live verified at: `https://ashish00968.github.io/a_portfolio/`
 
+### Stage 8: 3D Scroll Animations, Relativistic Star Warp & Orbital Himalayan Altimeter HUD (v3.3 — Current State)
+- **Relativistic Star Warp & Dynamic DEM Horizon Canvas (`SpaceshipBackground.jsx`)**:
+  - Velocity-damped scroll tracking (`window.scrollY` lerping with exponential decay `0.07`).
+  - In the 60–120 FPS RAF render loop, stars stretch and accelerate into warp streaks proportional to scroll velocity and Z-depth.
+  - 4-layer topographic DEM contour waves dynamically undulate and shift elevation based on cumulative scroll delta.
+- **3D Perspective Scroll Container (`Scroll3DReveal.jsx` & `.css`)**:
+  - Reusable container with `perspective: 1200px` and `transform-style: preserve-3d`.
+  - Driven by Framer Motion `useScroll`, `useTransform`, and physics springs (`stiffness: 180, damping: 24`).
+  - Smooth card entry pitch (`rotateX: 6.5° → 0°`), Z-depth displacement (`translateZ: -32px → 0px`), scale (`0.965 → 1.0`), and exit tilt.
+  - Supports asymmetric alternating depth and roll directions (`depth`, `rotateDirection: 'left' | 'right' | 'none'`).
+- **Hero 3D Spatial Tilt & Depth Separation (`HeroPortrait.jsx` & `HomePage.jsx`)**:
+  - Wrapped portrait frame in a scroll tilt stage (`rotateX: 0° → 10.5°`, `translateZ: 0px → -42px`), allowing the floating HUD telemetry pill (`DEM LOCK // 4,261M`) to project forward while the portrait pitches back.
+  - Hero text block dynamically tilts on scroll exit for spatial depth separation.
+- **Floating 3D Himalayan Orbital Altimeter HUD (`ScrollTelemetryHUD.jsx` & `.css`)**:
+  - Real-time altimeter calculating simulated Himalayan elevation from Solang Base (`2,480m`) to Patalsu Summit (`4,261m`), tracking waypoints (`WP-01` to `WP-36`).
+  - 3D attitude gimbal ring with pitch/roll momentum, active `:active` tactile scaling, and smooth scroll-to-top on click.
+  - Full `prefers-reduced-motion` compliance across all 3D transforms.
+- **Page-Wide Integration**:
+  - Deployed across Homepage, Tech Stack, DHT Case Study, Travel, Photography & Video, About, and Contact pages.
+
 ---
 
 ## 2. Active Environment & Dev Commands
@@ -169,3 +189,6 @@ Per Ashish's explicit design request:
 | **Contact Page (`/contact`)** | Active | Direct email link, copy button, verified links, mail composer |
 | **Route Code Splitting & SEO** | Active | `React.lazy()`, `routeMeta` in `portfolioData.js`, dynamic titles in `ScrollToTop` |
 | **Dual Deployment (GH Pages + Netlify)** | Active | Dynamic `base`, `basename`, `404.html` SPA fallback, asset path helper |
+| **3D Scroll Perspective Container** | Active | `Scroll3DReveal.jsx` with Framer Motion spring physics, `rotateX`, `translateZ` |
+| **Relativistic Star Warp & Horizon** | Active | `SpaceshipBackground.jsx` with velocity damping, warp streaks & undulating DEM |
+| **Floating Himalayan Altimeter HUD** | Active | `ScrollTelemetryHUD.jsx` with real-time altitude 2,480m–4,261m & attitude gimbal |
