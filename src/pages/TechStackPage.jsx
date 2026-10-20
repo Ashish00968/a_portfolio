@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, ArrowRight, Compass, ExternalLink, Cpu, Mountain, Gauge, Film, Sparkles, CheckCircle2 } from 'lucide-react';
 import SpotlightCard from '../components/ui/SpotlightCard';
-import { dhtCaseStudy, webProjects, techStackData, profile } from '../data/portfolioData';
+import { dhtCaseStudy, webProjects, techStackData, profile, getAssetPath } from '../data/portfolioData';
 import './TechStackPage.css';
 
 const categoryIcons = {
@@ -174,7 +174,7 @@ const TechStackPage = () => {
               <div className="flagship-visual">
                 <div className="flagship-img-frame">
                   <img
-                    src="/patalsu-thumbnail.jpg"
+                    src={getAssetPath('/patalsu-thumbnail.jpg')}
                     alt="Discover Himalayan Trails — Patalsu Peak Guide"
                     className="flagship-img"
                     loading="lazy"

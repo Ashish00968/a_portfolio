@@ -1,7 +1,7 @@
 import React from 'react';
 import { GraduationCap, Compass, Cpu, Camera, Video, MapPin } from 'lucide-react';
 import SpotlightCard from '../components/ui/SpotlightCard';
-import { profile } from '../data/portfolioData';
+import { profile, getAssetPath } from '../data/portfolioData';
 import './AboutPage.css';
 
 const AboutPage = () => {
@@ -90,7 +90,7 @@ const AboutPage = () => {
           <SpotlightCard className="about-visual-card" spotlightColor="rgba(56, 189, 248, 0.2)">
             <div className="about-visual-media-frame">
               <img
-                src="/alpine-reflection-ridge.jpg"
+                src={getAssetPath('/alpine-reflection-ridge.jpg')}
                 alt="Ashish Nirankari at 3,978m along the high alpine ridgeline"
                 className="about-visual-img"
                 loading="lazy"

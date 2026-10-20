@@ -3,7 +3,7 @@ import { ArrowUpRight, ArrowLeft, CheckCircle2, ExternalLink } from 'lucide-reac
 import { Link } from 'react-router-dom';
 import SpotlightCard from '../components/ui/SpotlightCard';
 import ElevationProfile3D from '../components/ui/ElevationProfile3D';
-import { dhtCaseStudy } from '../data/portfolioData';
+import { dhtCaseStudy, getAssetPath } from '../data/portfolioData';
 import './DhtCaseStudyPage.css';
 
 const DhtCaseStudyPage = () => {
@@ -128,7 +128,7 @@ const DhtCaseStudyPage = () => {
             <div className="cs-terrain-visual-card">
               <div className="cs-terrain-img-frame">
                 <img
-                  src="/pir-panjal-glacier-face.jpg"
+                  src={getAssetPath('/pir-panjal-glacier-face.jpg')}
                   alt="Pir Panjal Hanging Glacier and Topographic Rock Formations"
                   className="cs-terrain-img"
                   loading="lazy"

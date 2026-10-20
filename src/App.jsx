@@ -27,7 +27,7 @@ function TelemetryLoadingFallback() {
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <ScrollToTop />
       {/* Spaceship subtle canvas starfield & orbital background */}
       <SpaceshipBackground />

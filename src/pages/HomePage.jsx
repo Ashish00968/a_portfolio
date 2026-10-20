@@ -18,7 +18,7 @@ import {
 import HeroPortrait from '../components/home/HeroPortrait';
 import SpotlightCard from '../components/ui/SpotlightCard';
 import ElevationProfile3D from '../components/ui/ElevationProfile3D';
-import { dhtCaseStudy, profile } from '../data/portfolioData';
+import { dhtCaseStudy, profile, getAssetPath } from '../data/portfolioData';
 import './HomePage.css';
 
 const HomePage = () => {
@@ -313,7 +313,7 @@ const HomePage = () => {
                     transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
                   >
                     <img
-                      src="/patalsu-thumbnail.jpg"
+                      src={getAssetPath('/patalsu-thumbnail.jpg')}
                       alt="Patalsu Peak trail vista — Discover Himalayan Trails"
                       className="dht-preview-img"
                       loading="lazy"

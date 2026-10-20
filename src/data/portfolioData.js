@@ -4,6 +4,18 @@
  * Aligned with Ashish_Portfolio_Redesign_Brief_v2.md & Spaceship Theme Direction
  */
 
+/**
+ * Helper to resolve static asset paths against Vite's base path
+ * Handles both root deployment (Netlify) and repository subfolder (GitHub Pages: /a_portfolio/)
+ */
+export const getAssetPath = (path) => {
+  if (!path) return '';
+  if (path.startsWith('http://') || path.startsWith('https://')) return path;
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  const base = import.meta.env.BASE_URL || '/';
+  return base.endsWith('/') ? `${base}${cleanPath}` : `${base}/${cleanPath}`;
+};
+
 export const profile = {
   name: 'Ashish Nirankari',
   title: 'Full Stack Engineer & Founder of Discover Himalayan Trails',
@@ -21,8 +33,8 @@ export const profile = {
       'Computer Science at IIITDM Jabalpur. Architecting modern web platforms, 3D geospatial terrain systems, and high-altitude visual media.',
   },
   portrait: {
-    customImagePath: '/ashish-portrait.jpg',
-    fallbackPlaceholder: '/sethan-thumbnail.jpg',
+    customImagePath: getAssetPath('/ashish-portrait.jpg'),
+    fallbackPlaceholder: getAssetPath('/sethan-thumbnail.jpg'),
     alt: 'Ashish Nirankari — Mountain outdoor portrait slot',
     caption: 'Ashish Nirankari · Himalayan field & web craft',
   },
@@ -281,7 +293,7 @@ export const dhtCaseStudy = {
       desc: 'Non-technical summit trek above Solang Valley with 360° panoramas of Kullu and Lahaul ranges and authentic 36-waypoint GPS track.',
       altitude: '4,261 m',
       stats: '12 km round trip · Solang Base',
-      image: '/patalsu-thumbnail.jpg',
+      image: getAssetPath('/patalsu-thumbnail.jpg'),
     },
     {
       name: 'Rohtang Pass (3,978m)',
@@ -291,7 +303,7 @@ export const dhtCaseStudy = {
       desc: 'Historic mountain pass connecting Kullu Valley with the arid Lahaul and Spiti Valleys, with high-altitude terrain inspection.',
       altitude: '3,978 m',
       stats: 'High mountain pass · Pir Panjal',
-      image: '/alpine-reflection-ridge.jpg',
+      image: getAssetPath('/alpine-reflection-ridge.jpg'),
     },
   ],
   architecturePipeline: [
@@ -432,7 +444,7 @@ export const photographyGallery = [
     title: 'Glacial Amphitheater Survey',
     location: 'Pir Panjal Range, Himachal Pradesh',
     category: 'Trails & Summits',
-    src: '/field-explorer-glacier.jpg',
+    src: getAssetPath('/field-explorer-glacier.jpg'),
     width: 1800,
     height: 1350,
     caption: 'Surveying sheer glacial faces, hanging ice, and mountain weather fronts at the edge of the high amphitheater.',
@@ -444,7 +456,7 @@ export const photographyGallery = [
     title: 'Pir Panjal Hanging Glacier & Rock Chutes',
     location: 'Pir Panjal High Ridges, Himachal Pradesh',
     category: 'Himalayan Landscapes',
-    src: '/pir-panjal-glacier-face.jpg',
+    src: getAssetPath('/pir-panjal-glacier-face.jpg'),
     width: 1800,
     height: 1350,
     caption: 'Telephoto study of vertical granite couloirs, avalanche runnels, and active glacial ice melt.',
@@ -456,7 +468,7 @@ export const photographyGallery = [
     title: 'Alpine Ridge Reflection (3,978m)',
     location: 'Rohtang Pass Crest, Himachal Pradesh',
     category: 'Trails & Summits',
-    src: '/alpine-reflection-ridge.jpg',
+    src: getAssetPath('/alpine-reflection-ridge.jpg'),
     width: 1800,
     height: 1013,
     caption: 'Rest checkpoint atop the windswept granite crest overlooking the snow-draped Pir Panjal divide.',
@@ -468,7 +480,7 @@ export const photographyGallery = [
     title: 'Gateway to the High Range',
     location: 'Solang & Lahaul Gateway, Himachal Pradesh',
     category: 'Outdoor Environments',
-    src: '/ashish-portrait.jpg',
+    src: getAssetPath('/ashish-portrait.jpg'),
     width: 1800,
     height: 1350,
     caption: 'Traditional Himalayan welcome gateway marking the transition into alpine territory beneath snow-capped peaks.',
@@ -480,7 +492,7 @@ export const photographyGallery = [
     title: 'Sethan Mountain Sunset',
     location: 'Sethan, Hampta Valley, Himachal Pradesh',
     category: 'Himalayan Landscapes',
-    src: '/sethan-thumbnail.jpg',
+    src: getAssetPath('/sethan-thumbnail.jpg'),
     width: 1200,
     height: 675,
     caption: 'Evening alpenglow over the snow-dusted ridges above Sethan village.',
@@ -492,7 +504,7 @@ export const photographyGallery = [
     title: 'Patalsu Peak Ascent Ridge',
     location: 'Solang Valley, Himachal Pradesh',
     category: 'Trails & Summits',
-    src: '/patalsu-thumbnail.jpg',
+    src: getAssetPath('/patalsu-thumbnail.jpg'),
     width: 1200,
     height: 675,
     caption: 'Looking towards the high snowfields along the ridge ascending Patalsu.',
@@ -504,7 +516,7 @@ export const photographyGallery = [
     title: 'Manali Forest & Valley Vistas',
     location: 'Kullu Valley, Himachal Pradesh',
     category: 'Outdoor Environments',
-    src: '/manali-transitions-thumbnail.jpg',
+    src: getAssetPath('/manali-transitions-thumbnail.jpg'),
     width: 1200,
     height: 675,
     caption: 'Pine forests and rushing glacial waters in the upper Beas basin.',
@@ -516,7 +528,7 @@ export const photographyGallery = [
     title: 'Kalpa & Kinner Kailash Vista',
     location: 'Kinnaur, Himachal Pradesh',
     category: 'Himalayan Landscapes',
-    src: '/kalpa-thumbnail.jpg',
+    src: getAssetPath('/kalpa-thumbnail.jpg'),
     width: 1200,
     height: 675,
     caption: 'Towering sacred peaks of the Kinnaur range rising over alpine orchards.',
@@ -529,8 +541,8 @@ export const photoEditComparison = {
   title: 'Raw LOG vs. Graded Mountain Frame',
   description:
     'Balancing dynamic range, high-altitude alpine skies, and tonal depth from flat camera profiles to finished cinematic stills.',
-  rawImg: '/before.jpg',
-  gradedImg: '/after.jpg',
+  rawImg: getAssetPath('/before.jpg'),
+  gradedImg: getAssetPath('/after.jpg'),
   rawLabel: 'Flat Camera RAW / LOG',
   gradedLabel: 'Graded & Balanced',
 };
@@ -542,7 +554,7 @@ export const videoShowcase = [
     category: 'Cinematic Color Grading',
     desc: 'Cinematic pacing, mountain light transitions, and natural alpine tone curves.',
     youtubeId: '7SS_xdbI3Xc',
-    imgSrc: '/sethan-thumbnail.jpg',
+    imgSrc: getAssetPath('/sethan-thumbnail.jpg'),
   },
   {
     id: 2,
@@ -550,7 +562,7 @@ export const videoShowcase = [
     category: 'Travel Cinematic',
     desc: 'An immersive cinematic sequence capturing the high-altitude ascent of Patalsu Peak near Manali.',
     youtubeId: 'yinFLtDCJ3k',
-    imgSrc: '/patalsu-thumbnail.jpg',
+    imgSrc: getAssetPath('/patalsu-thumbnail.jpg'),
   },
   {
     id: 3,
@@ -558,7 +570,7 @@ export const videoShowcase = [
     category: 'Travel Reel',
     desc: 'Rhythmic, seamless transitions highlighting the mountain energy and pine forest roads of Manali.',
     youtubeId: 'Q53KC68VNaM',
-    imgSrc: '/manali-transitions-thumbnail.jpg',
+    imgSrc: getAssetPath('/manali-transitions-thumbnail.jpg'),
   },
   {
     id: 4,
@@ -566,7 +578,7 @@ export const videoShowcase = [
     category: 'Slow Motion B-Roll',
     desc: 'Atmospheric sequence capturing the quiet scale and mountain ridges of Kalpa in Kinnaur.',
     youtubeId: '_FOL-z3aICs',
-    imgSrc: '/kalpa-thumbnail.jpg',
+    imgSrc: getAssetPath('/kalpa-thumbnail.jpg'),
   },
 ];
 
@@ -578,7 +590,7 @@ export const travelExperience = {
     subtitle: 'Glacial Reconnaissance & Waypoint Telemetry',
     location: 'Pir Panjal Range · Himachal Pradesh',
     altitude: '3,850 m – 4,020 m',
-    image: '/field-explorer-glacier.jpg',
+    image: getAssetPath('/field-explorer-glacier.jpg'),
     caption: 'Ashish Nirankari surveying high-altitude glacial terrain and pass approaches in the Pir Panjal range.',
     telemetry: 'SURVEY CHECKPOINT // PIR PANJAL · 32.37° N, 77.24° E · 3,978M',
     notes: 'Directly observing glacial retreat corridors, meltwater flow patterns, and steep snow couloirs to ensure Discover Himalayan Trails elevation profiles reflect physical conditions on the ground.',
@@ -588,7 +600,7 @@ export const travelExperience = {
       region: 'Patalsu Peak & Solang Valley',
       location: 'Himachal Pradesh · Kullu District',
       elevation: '4,261 m',
-      image: '/patalsu-thumbnail.jpg',
+      image: getAssetPath('/patalsu-thumbnail.jpg'),
       details: 'Summited and recorded a complete 36-waypoint GPS track along the ascent ridge. Captured 360° photographic panoramas of the Beas Kund and Hanuman Tibba peaks.',
       tags: ['GPS Tracked', 'Summit Hike', 'DHT Guide'],
       status: 'Visited & Documented',
@@ -597,7 +609,7 @@ export const travelExperience = {
       region: 'Rohtang Pass Ridgeline',
       location: 'Himachal Pradesh · Pir Panjal Range',
       elevation: '3,978 m',
-      image: '/alpine-reflection-ridge.jpg',
+      image: getAssetPath('/alpine-reflection-ridge.jpg'),
       details: 'Historic high mountain pass dividing the lush Kullu valley from the arid rain-shadow of Lahaul. Curated terrain notes for the DHT atlas.',
       tags: ['Mountain Pass', 'High Alpine Ridge', 'DHT Guide'],
       status: 'Visited & Documented',
@@ -606,7 +618,7 @@ export const travelExperience = {
       region: 'Sethan Village & Hampta Foothills',
       location: 'Himachal Pradesh · Pir Panjal Fringe',
       elevation: '2,600 m – 3,200 m',
-      image: '/sethan-thumbnail.jpg',
+      image: getAssetPath('/sethan-thumbnail.jpg'),
       details: 'Field photography of alpine alpenglow, boulder-strewn slopes, and transition trails leading up towards Hampta Pass. Color grading case study origin.',
       tags: ['Photography', 'Cinematic Video'],
       status: 'Visited & Documented',
@@ -615,7 +627,7 @@ export const travelExperience = {
       region: 'Kinnaur & Kinner Kailash Vista',
       location: 'Himachal Pradesh · Sutlej Valley',
       elevation: '2,960 m',
-      image: '/kalpa-thumbnail.jpg',
+      image: getAssetPath('/kalpa-thumbnail.jpg'),
       details: 'High-altitude research into tribal circuit routes, sacred peak topographies, and dry alpine valley transitions.',
       tags: ['Regional Atlas', 'Landscape Study'],
       status: 'Visited & Documented',
